@@ -225,7 +225,7 @@ public class VillageAnalyzer implements MessageTap {
         log.info("=================================================");
         log.info("{}", userName);
         log.info("Shield ends in {}", Dates.formatInterval(remainingShield));
-        log.info("Gem box drop {}", Dates.formatInterval(timeToGemboxDrop));
+        log.info("Gem box drop {}", Dates.formatIntervalToDayString(timeToGemboxDrop));
         log.info("DPS: {}, HP: {} (walls {})", dpsTotal, hpTotal, wallHpTotal);
         log.info("Garrison: " + unitDescriptions);
         log.info("Loot:");
