@@ -67,7 +67,7 @@ public class MessageSaver implements PduFilter {
         try {
             if (types.contains(type)) {
                 String villageName = guessName(pdu);
-                String name = String.format("%s[%3$s]%2$tF-%2$tH-%2$tM-%2$tS.pdu", type, new Date(), villageName.replaceAll("[^\\p{L}\\p{Nd}]+", ""));
+                String name = String.format("%s[%3$s]%2$tF-%2$tH-%2$tM-%2$tS.pdu", type, new Date(), villageName);
                 File file = new File(saveDir, name);
                 try (PduOutputStream out = new PduOutputStream(new FileOutputStream(file), NOOP_CIPHER)) {
                     out.write(pdu);
@@ -122,7 +122,7 @@ public class MessageSaver implements PduFilter {
         StringBuilder sb = new StringBuilder(len);
         for (int i = 0; i < len; i++) {
             char ch = s.charAt(i);
-            if ( ch < ' ' || ":\\/]".indexOf(ch) != -1) {
+            if ( ch < ' ' || "\\/:*?\"<>|".indexOf(ch) != -1) {
                 sb.append('_');
             } else {
                 sb.append(ch);
