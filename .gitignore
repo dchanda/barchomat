@@ -4,3 +4,11 @@
 .idea
 *.iml
 *.apk
+/target/
+
+/villages/
+/.settings/
+client.txt
+server.txt
+.project
+.classpath
