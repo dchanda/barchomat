@@ -196,6 +196,8 @@ public class VillageAnalyzer implements MessageTap {
         } else {
             loot = lootCalculator.calculateAvailableLoot(loot, townHallLevel);
         }
+        
+        String warReq = village.war_req_msg;
 
         //
         // Garrison
@@ -218,6 +220,8 @@ public class VillageAnalyzer implements MessageTap {
         // Dump stats
         //
 
+        
+        log.info("=================================================");
         log.info("{}", userName);
         log.info("Gem box drop {}", Dates.formatInterval(timeToGemboxDrop));
         log.info("DPS: {}, HP: {} (walls {})", dpsTotal, hpTotal, wallHpTotal);
@@ -228,6 +232,9 @@ public class VillageAnalyzer implements MessageTap {
         log.info("Castle: {}", loot.getCastleLoot());
         log.info("Collectors: {}", loot.getCollectorLoot());
         log.info("Total: {}", loot.total());
+        log.info("War Req: {}", warReq);
+        log.info("=================================================");
+
 
         if (message.getType() != OwnHomeData) {
             // Apply raid penalty
