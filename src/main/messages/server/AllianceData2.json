@@ -1,7 +1,13 @@
 {
-  "id": 24301,
-  "name": "AllianceData",
+  "id": 24324,
+  "name": "AllianceData2",
   "fields": [
+    {"name": "clanDescription", "type": "STRING"},
+    {"type": "INT"},
+    {"type": "INT"},
+    {"type": "INT"},
+    {"type": "INT"},
+    {"type": "BYTE"},
     {"name": "clanId", "type": "LONG"},
     {"name": "clanName", "type": "STRING"},
     {"name": "clanbadge", "type": "INT"},
@@ -16,11 +22,6 @@
     {"name": "clanWarFrequency", "type": "INT"},
     {"name": "clanLocation", "type": "INT"},
     {"name": "clanPerksPoints", "type": "INT"},
-    {"type": "INT"},
-    {"name": "clanDescription", "type": "STRING"},
-    {"type": "INT"},
-    {"name": "clanInWar", "type": "BYTE"},
-    {"name": "warID", "type": "LONG"},
-    {"type": "clanMembers[]"}
+    {"type": "INT"}
   ]
 }
