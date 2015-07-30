@@ -1,0 +1,11 @@
+{
+  "id": 14325,
+  "name": "AskForAvatarProfile",
+  "fields": [
+    {"type": "INT"},
+    {"type": "INT"},
+    {"type": "INT"},
+    {"type": "INT"},
+    {"type": "BYTE"}
+  ]
+}
