@@ -67,6 +67,7 @@ public class ClashProxy {
         filterChain = filterChain.addAfter(new MessageTapFilter(
             services.getMessageFactory(),
             new VillageAnalyzer(services.getLogic()),
+            new ClanAnalyzer(services.getLogic()),
             new AttackAnalyzer(services.getLogic())
 //            logger.tapFor(EndClientTurn),
 //            logger.tapFor(WarHomeData, "warVillage")

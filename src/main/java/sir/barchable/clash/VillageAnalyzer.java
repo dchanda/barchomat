@@ -70,6 +70,7 @@ public class VillageAnalyzer implements MessageTap {
 
         int age = message.getInt("age");
         Integer timeStamp = message.getInt("timeStamp");
+        int remainingShield = message.getInt("remainingShield");
 
         Message user = message.getMessage("user");
         String userName = user.getString("userName");
@@ -223,6 +224,7 @@ public class VillageAnalyzer implements MessageTap {
         
         log.info("=================================================");
         log.info("{}", userName);
+        log.info("Shield ends in {}", Dates.formatInterval(remainingShield));
         log.info("Gem box drop {}", Dates.formatInterval(timeToGemboxDrop));
         log.info("DPS: {}, HP: {} (walls {})", dpsTotal, hpTotal, wallHpTotal);
         log.info("Garrison: " + unitDescriptions);
@@ -233,7 +235,6 @@ public class VillageAnalyzer implements MessageTap {
         log.info("Collectors: {}", loot.getCollectorLoot());
         log.info("Total: {}", loot.total());
         log.info("War Req: {}", warReq);
-        log.info("=================================================");
 
 
         if (message.getType() != OwnHomeData) {
@@ -247,6 +248,7 @@ public class VillageAnalyzer implements MessageTap {
                 }
             }
         }
+        log.info("=================================================");
 
         // Save the stats in the session.
         if (clanName != null) {
