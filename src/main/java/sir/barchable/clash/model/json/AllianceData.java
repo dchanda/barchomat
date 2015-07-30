@@ -28,7 +28,7 @@ public class AllianceData {
 	public Integer field17;
 	public Boolean clanInWar;
 	public Long warID;
-	public Members[] field20;
+	public Members[] clanMembers;
 	
     @JsonAutoDetect(fieldVisibility = ANY)
     @JsonInclude(NON_NULL)

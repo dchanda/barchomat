@@ -1737,7 +1737,7 @@
       "comment" : null,
       "default" : null
     }, {
-      "name" : null,
+      "name" : "clanMembers",
       "type" : "clanMembers[]",
       "comment" : null,
       "default" : null
