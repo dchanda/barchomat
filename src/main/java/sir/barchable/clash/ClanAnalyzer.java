@@ -48,8 +48,8 @@ public class ClanAnalyzer implements MessageTap {
         log.info("=================================================");
         log.info("Clan name: {}", clanData.clanName);
         log.info("Wars Won: {}", clanData.clanWarsWon);
-        log.info("Wars Lost: {}", clanData.clanWarsTied);
-        log.info("Wars Tied: {}", clanData.clanWarsLost);
+        log.info("Wars Lost: {}", clanData.clanWarsLost);
+        log.info("Wars Tied: {}", clanData.clanWarsTied);
         log.info("Clan Desc: {}", clanData.clanDescription);        
         log.info("-------------------------------------------------");
         int optInCount = 0;
