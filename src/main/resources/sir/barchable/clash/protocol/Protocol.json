@@ -1632,7 +1632,7 @@
       "comment" : null,
       "default" : null
     }, {
-      "name" : "clanbadge",
+      "name" : "clanBadge",
       "type" : "INT",
       "comment" : null,
       "default" : null
