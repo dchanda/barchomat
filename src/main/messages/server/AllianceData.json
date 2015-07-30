@@ -4,7 +4,7 @@
   "fields": [
     {"name": "clanId", "type": "LONG"},
     {"name": "clanName", "type": "STRING"},
-    {"name": "clanbadge", "type": "INT"},
+    {"name": "clanBadge", "type": "INT"},
     {"name": "clanInviteType", "type": "INT"},
     {"name": "memberCount", "type": "INT"},
     {"name": "totalTrophies", "type": "INT"},

@@ -70,6 +70,7 @@ public class VillageAnalyzer implements MessageTap {
 
         int age = message.getInt("age");
         Integer timeStamp = message.getInt("timeStamp");
+        int remainingShield = message.getInt("remainingShield");
 
         Message user = message.getMessage("user");
         String userName = user.getString("userName");
@@ -196,6 +197,8 @@ public class VillageAnalyzer implements MessageTap {
         } else {
             loot = lootCalculator.calculateAvailableLoot(loot, townHallLevel);
         }
+        
+        String warReq = village.war_req_msg;
 
         //
         // Garrison
@@ -218,7 +221,10 @@ public class VillageAnalyzer implements MessageTap {
         // Dump stats
         //
 
+        
+        log.info("=================================================");
         log.info("{}", userName);
+        log.info("Shield ends in {}", Dates.formatInterval(remainingShield));
         log.info("Gem box drop {}", Dates.formatInterval(timeToGemboxDrop));
         log.info("DPS: {}, HP: {} (walls {})", dpsTotal, hpTotal, wallHpTotal);
         log.info("Garrison: " + unitDescriptions);
@@ -228,6 +234,8 @@ public class VillageAnalyzer implements MessageTap {
         log.info("Castle: {}", loot.getCastleLoot());
         log.info("Collectors: {}", loot.getCollectorLoot());
         log.info("Total: {}", loot.total());
+        log.info("War Req: {}", warReq);
+
 
         if (message.getType() != OwnHomeData) {
             // Apply raid penalty
@@ -240,6 +248,7 @@ public class VillageAnalyzer implements MessageTap {
                 }
             }
         }
+        log.info("=================================================");
 
         // Save the stats in the session.
         if (clanName != null) {
