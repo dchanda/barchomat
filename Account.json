@@ -1,0 +1,19 @@
+[
+    {
+        "name":"Type name", <-- Change it
+        "userId":Id numbers, <-- Change it
+        "userToken":" Your password", <-- Change it
+        "udid":"",
+        "openUdid":"dc543bc48b35ebda", <-- Randomize this
+        "mac":null,
+        "phoneModel":"GT-P5200",
+        "locale":2000000,
+        "language":"nl",
+        "advertisingIdentifier":"7591a0f3-70b3-4cfa-8db8-c91e2b1d99e2", < -- Randomize this
+        "osVersion":"4.2.2",
+        "androidDeviceId":"None", <-- Randomize this
+        "facebookAttributionId":"",
+        "advertisingTrackingEnabled":1,
+        "vendorUuid":""
+    }
+]

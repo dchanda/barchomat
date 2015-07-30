@@ -21,7 +21,8 @@ public class Main {
     private ServerCommand serverCommand = new ServerCommand();
     private DecodeCommand decodeCommand = new DecodeCommand();
     private LoadCommand loadCommand = new LoadCommand();
-
+    private ClientCommand clientCommand = new ClientCommand();
+    
     @Parameters(commandDescription = "Run the clash proxy")
     public static class ProxyCommand {
         @Parameter(names = {"-s", "--save"}, description = "Save messages to the 'villages' directory")
@@ -62,6 +63,24 @@ public class Main {
             return war;
         }
     }
+    
+    @Parameters(commandDescription = "Run the clash client")
+    public static class ClientCommand {
+    	@Parameter(names = {"-s", "--save"}, description = "Save to the database")
+        private boolean save;
+
+        @Parameter(names = {"-n", "--name-server"}, description = "Name server to read up-stream server address from")
+        private String nameServer = "8.8.8.8";
+
+        public boolean getSave() {
+            return save;
+        }
+
+        public String getNameServer() {
+            return nameServer;
+        }
+    }
+    
 
     @Parameters(commandDescription = "Decode captured tcp dumps")
     public static class DecodeCommand {
@@ -98,7 +117,8 @@ public class Main {
         commander.addCommand("server", main.serverCommand);
         commander.addCommand("dump", main.decodeCommand);
         commander.addCommand("load", main.loadCommand);
-
+        commander.addCommand("client", main.clientCommand);
+        
         try {
             commander.parse(args);
             main.run(commander.getParsedCommand());
@@ -138,6 +158,11 @@ public class Main {
             case "load":
                 Load load = new Load(services, loadCommand);
                 load.run();
+                break;
+                
+            case "client":
+            	ClashClient clashClient = new ClashClient(services, clientCommand);
+            	clashClient.run();
                 break;
 
             default:
