@@ -27,6 +27,7 @@ import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.util.Arrays;
 import java.util.Map;
+import java.util.Timer;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -137,6 +138,8 @@ public class ClientSession {
 	    }
 	    
 	    private void processRequests(Connection connection) {
+	    	Timer autoSendtimer = new Timer();
+	    	autoSendtimer.schedule(new AutoSend(serverConnection.getOut(),messageFactory), 0, 5000);
 	        try {
 	            while (running.get()) {
 	            	log.debug("Receive");
@@ -158,6 +161,7 @@ public class ClientSession {
 	                e
 	            );
 	        }
+	        autoSendtimer.cancel();
 	    }
 
 	    /**
