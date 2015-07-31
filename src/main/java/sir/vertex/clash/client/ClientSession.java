@@ -146,15 +146,8 @@ public class ClientSession {
 
 	                Pdu pdu = connection.getIn().read();
 	                
-	                Pdu response = filterChain.filter(pdu);
+	                filterChain.filter(pdu);
 
-	                //
-	                // Return the response to the client
-	                //
-
-	                if (response != null) {
-	                    connection.getOut().write(response);
-	                }
 	            }
 
 	            log.info("{} done", connection.getName());

@@ -10,6 +10,7 @@ import sir.barchable.clash.protocol.Connection;
 import sir.barchable.clash.protocol.Pdu;
 import sir.barchable.clash.proxy.MessageLogger;
 import sir.barchable.clash.proxy.MessageTapFilter;
+import sir.barchable.clash.proxy.PduFilter;
 import sir.barchable.clash.proxy.PduFilterChain;
 import sir.barchable.clash.proxy.ProxySession;
 import sir.barchable.clash.ClashProxy;
@@ -72,13 +73,7 @@ public class ClashClient {
 		//
 		this.dns = new Dns(command.getNameServer());
 		
-        filterChain = filterChain.addAfter(new MessageTapFilter(
-                services.getMessageFactory()
-                //new ChatBot(services.getLogic())
-                //new MessageLogger(new OutputStreamWriter(System.out)).tapFor(Pdu.Type.OwnHomeData)
-                //new VillageAnalyzer(services.getLogic()),
-                //new AttackAnalyzer(services.getLogic())
-            ));
+        filterChain = new PduFilterChain();
 	}
 
 	public void run() throws IOException {
@@ -88,6 +83,16 @@ public class ClashClient {
 			try (Socket clientSocket = new Socket(serverAddress, CLASH_PORT);
 					Connection serverConnection = new Connection(clientSocket)) {
 				log.info("Connecting to {}:{}", serverAddress, CLASH_PORT);
+				
+				filterChain = filterChain.addAfter(new MessageTapFilter(
+		                services.getMessageFactory(),
+		                new ChatBot(services.getLogic(),serverConnection,services.getMessageFactory())
+		                //new MessageLogger(new OutputStreamWriter(System.out)).tapFor(Pdu.Type.OwnHomeData)
+		                //new VillageAnalyzer(services.getLogic()),
+		                //new AttackAnalyzer(services.getLogic())
+		            ));
+				
+				
 				ClientSession session = ClientSession.newSession(services,
 						serverConnection, command, settings.GetAccount(0),
 						filterChain);
