@@ -112,7 +112,7 @@ public class ClientSession {
 	        	
 	        	loginMessage.set("majorVersion", 7); // Not good, were store constants?
 	        	loginMessage.set("minorVersion", 156); // Not good, were store constants?
-	        	loginMessage.set("masterHash", "a84b8e7ec2d4e421dc23c315174de5e36231a2d0"); // Not good, make dynamic
+	        	loginMessage.set("masterHash", "77d150027859d9ad0d37fb30696c66cdbd2a0d9e"); // Not good, make dynamic
 	        	
 	            serverConnection.getOut().write(messageFactory.toPdu(loginMessage));
 	        		           
