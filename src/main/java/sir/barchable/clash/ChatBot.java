@@ -2,8 +2,9 @@ package sir.barchable.clash;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import sir.barchable.clash.model.Logic;
 import sir.barchable.clash.model.json.Village;
@@ -75,16 +76,26 @@ public class ChatBot implements MessageTap {
 	}
 
 	public void sendChatMessage(String text) {
-		Message chatToAllianceStream = messageFactory
+		// Split text on multiple messages when bigger than 128 characters
+		// TODO: Ellipsis at the end... for next chat message
+		int len = text.length();
+		Message chatToAllianceStream =messageFactory
 				.newMessage(ChatToAllianceStream);
-		chatToAllianceStream.set("text", text);
 		try {
-			connection.getOut().write(
-					messageFactory.toPdu(chatToAllianceStream));
+			for (int i = 0; i < len; i += 128) // Max 128 characters
+			{
+				chatToAllianceStream.set("text",
+						text.substring(i, Math.min(len, i + 128)));
+				connection.getOut().write(
+						messageFactory.toPdu(chatToAllianceStream));
+				Thread.sleep(500);
+			}
 		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-
 }
