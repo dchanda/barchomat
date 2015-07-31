@@ -644,6 +644,17 @@
     } ],
     "extensions" : [ ]
   }, {
+    "id" : 14715,
+    "name" : "SendGlobalChatLine",
+    "comment" : null,
+    "fields" : [ {
+      "name" : "text",
+      "type" : "STRING",
+      "comment" : null,
+      "default" : null
+    } ],
+    "extensions" : [ ]
+  }, {
     "id" : 10113,
     "name" : "SetDeviceToken",
     "comment" : null,
@@ -2056,6 +2067,22 @@
         "default" : null
       } ]
     } ]
+  }, {
+    "id" : 24318,
+    "name" : "AllianceStreamEntryRemoved",
+    "comment" : null,
+    "fields" : [ {
+      "name" : null,
+      "type" : "INT",
+      "comment" : null,
+      "default" : null
+    }, {
+      "name" : "messageId",
+      "type" : "INT",
+      "comment" : null,
+      "default" : null
+    } ],
+    "extensions" : [ ]
   }, {
     "id" : 14302,
     "name" : "AskForAllianceData",
