@@ -1,6 +1,7 @@
 package sir.barchable.clash;
 
 import java.io.IOException;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,6 +13,7 @@ import sir.barchable.clash.model.json.AllianceData;
 import sir.barchable.clash.model.json.Village;
 import sir.barchable.clash.protocol.Message;
 import sir.barchable.clash.proxy.MessageTap;
+import sir.barchable.util.Json;
 
 
 
@@ -27,13 +29,10 @@ public class ClanAnalyzer implements MessageTap {
 
 	@Override
 	public void onMessage(Message message) {
-		String data = message.toString();
-
         switch (message.getType()) {
             case AllianceData:
                 try {
-                    ObjectMapper objectMapper = new ObjectMapper();
-                	AllianceData clanData =  objectMapper.readValue(data, AllianceData.class);
+                	AllianceData clanData = Json.convertValue(message.getFields(), AllianceData.class);
                 	analyzeClanInfo(clanData);
                 } catch (RuntimeException | IOException e) {
                     log.warn("Could not read village", e);
@@ -55,7 +54,7 @@ public class ClanAnalyzer implements MessageTap {
         int optInCount = 0;
         int troopsRecieved = 0;
         int troopsDonated = 0;
-        for (AllianceData.Members member : clanData.field20 ) {
+        for (AllianceData.Members member : clanData.clanMembers ) {
         	String info = "";
         	switch(member.clanWarPreference)
         	{

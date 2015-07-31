@@ -540,7 +540,7 @@
       "name" : null,
       "type" : "INT",
       "comment" : null,
-      "default" : null
+      "default" : "0"
     }, {
       "name" : "minorVersion",
       "type" : "INT",
@@ -552,7 +552,7 @@
       "comment" : null,
       "default" : null
     }, {
-      "name" : null,
+      "name" : "udid",
       "type" : "STRING",
       "comment" : null,
       "default" : null
@@ -593,9 +593,14 @@
       "default" : null
     }, {
       "name" : null,
-      "type" : "BYTE[5]",
+      "type" : "BYTE",
       "comment" : null,
-      "default" : null
+      "default" : "1"
+    }, {
+      "name" : null,
+      "type" : "STRING",
+      "comment" : null,
+      "default" : ""
     }, {
       "name" : "androidDeviceId",
       "type" : "STRING",
@@ -608,7 +613,7 @@
       "default" : null
     }, {
       "name" : "advertisingTrackingEnabled",
-      "type" : "BYTE",
+      "type" : "BOOLEAN",
       "comment" : null,
       "default" : null
     }, {
@@ -621,6 +626,21 @@
       "type" : "INT",
       "comment" : null,
       "default" : null
+    }, {
+      "name" : null,
+      "type" : "BYTE",
+      "comment" : null,
+      "default" : "2"
+    }, {
+      "name" : null,
+      "type" : "STRING",
+      "comment" : null,
+      "default" : ""
+    }, {
+      "name" : null,
+      "type" : "STRING",
+      "comment" : null,
+      "default" : ""
     } ],
     "extensions" : [ ]
   }, {
@@ -1717,7 +1737,7 @@
       "comment" : null,
       "default" : null
     }, {
-      "name" : null,
+      "name" : "clanMembers",
       "type" : "clanMembers[]",
       "comment" : null,
       "default" : null
