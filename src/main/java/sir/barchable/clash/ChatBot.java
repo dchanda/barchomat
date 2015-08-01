@@ -8,6 +8,7 @@ import java.util.List;
 
 import sir.barchable.clash.model.Logic;
 import sir.barchable.clash.model.json.Village;
+import sir.barchable.clash.model.json.ClanSearchResults;
 import sir.barchable.clash.protocol.Connection;
 import sir.barchable.clash.protocol.Message;
 import sir.barchable.clash.protocol.MessageFactory;
@@ -39,6 +40,7 @@ public class ChatBot implements MessageTap {
 		case AllianceStreamEntry:
 			if (message.getInt("id") == 2) {
 				String text = message.getString("text");
+				//should we convert these ifs to switch cases?
 				if (text.equals("getTime")) {
 					sendChatMessage(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
 							.format(new Date()));
@@ -55,6 +57,11 @@ public class ChatBot implements MessageTap {
 						e.printStackTrace();
 					}
 				}
+				if(text.contains("warRecord") && text.indexOf("warRecord") == 0)
+				{
+					sendClanSearchRequest(text.substring(10)); //10 = size of "warRecord "
+				}
+				
 			}
 			break;
 		case VisitedHomeData:
@@ -69,12 +76,51 @@ public class ChatBot implements MessageTap {
 				log.warn("Could not read village", e);
 			}
 			break;
+		case AllianceList:
+			try {
+				ClanSearchResults results = Json.convertValue(message.getFields(), ClanSearchResults.class);
+				String warRecrod = "";
+				if(results.searchEntries.length > 0)
+				{
+					warRecrod =  "" + results.searchEntries[0].clanName + " :" + results.searchEntries[0].warsWon + "-" +  results.searchEntries[0].warsLost + "-" +  results.searchEntries[0].warsTied;
+				}
+				else
+				{
+					warRecrod = "No results found";
+				}
+				sendChatMessage(warRecrod);
+			} catch (RuntimeException | IOException e) {
+				log.warn("Could not read village", e);
+			}
 		default:
 			break;
 
 		}
 	}
 
+	public void sendClanSearchRequest(String text)
+	{
+			
+		Message searchClan = messageFactory.newMessage(SearchAlliances);		
+		searchClan.set("searchString", text);
+		searchClan.set("warFrequency", 0);
+		searchClan.set("clanLocation", 0);
+		searchClan.set("minMembers", 1);
+		searchClan.set("maxMembers", 50);
+		searchClan.set("trophyLimit", 0);
+		searchClan.set("onlyClanUserCanJoin", (byte)1);
+		searchClan.set("field8", 0);
+		searchClan.set("field8", 1);
+		
+		try {
+			connection.getOut().write(
+					messageFactory.toPdu(searchClan));
+		} catch (IOException e) {
+			log.error("Error sending {}", e);
+			e.printStackTrace();
+		}
+	}
+	
 	public void sendChatMessage(String text) {
 		// Split text on multiple messages when bigger than 128 characters
 		// TODO: Ellipsis at the end... for next chat message

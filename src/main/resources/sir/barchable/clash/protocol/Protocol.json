@@ -644,6 +644,57 @@
     } ],
     "extensions" : [ ]
   }, {
+    "id" : 14324,
+    "name" : "SearchAlliances",
+    "comment" : null,
+    "fields" : [ {
+      "name" : "searchString",
+      "type" : "STRING",
+      "comment" : null,
+      "default" : null
+    }, {
+      "name" : "warFrequency",
+      "type" : "INT",
+      "comment" : null,
+      "default" : null
+    }, {
+      "name" : "clanLocation",
+      "type" : "INT",
+      "comment" : null,
+      "default" : null
+    }, {
+      "name" : "minMembers",
+      "type" : "INT",
+      "comment" : null,
+      "default" : null
+    }, {
+      "name" : "maxMembers",
+      "type" : "INT",
+      "comment" : null,
+      "default" : null
+    }, {
+      "name" : "trophyLimit",
+      "type" : "INT",
+      "comment" : null,
+      "default" : null
+    }, {
+      "name" : "onlyClanUserCanJoin",
+      "type" : "BYTE",
+      "comment" : null,
+      "default" : null
+    }, {
+      "name" : null,
+      "type" : "INT",
+      "comment" : null,
+      "default" : null
+    }, {
+      "name" : null,
+      "type" : "INT",
+      "comment" : null,
+      "default" : null
+    } ],
+    "extensions" : [ ]
+  }, {
     "id" : 14715,
     "name" : "SendGlobalChatLine",
     "comment" : null,
@@ -1016,6 +1067,87 @@
     }, {
       "name" : "goblinElixir",
       "type" : "ResourceComponent[]",
+      "comment" : null,
+      "default" : null
+    } ],
+    "extensions" : [ ]
+  }, {
+    "id" : null,
+    "name" : "searchEntry",
+    "comment" : null,
+    "fields" : [ {
+      "name" : "clanId",
+      "type" : "LONG",
+      "comment" : null,
+      "default" : null
+    }, {
+      "name" : "clanName",
+      "type" : "STRING",
+      "comment" : null,
+      "default" : null
+    }, {
+      "name" : "clanBadge",
+      "type" : "INT",
+      "comment" : null,
+      "default" : null
+    }, {
+      "name" : "inviteType",
+      "type" : "INT",
+      "comment" : null,
+      "default" : null
+    }, {
+      "name" : "currentMembers",
+      "type" : "INT",
+      "comment" : null,
+      "default" : null
+    }, {
+      "name" : "clanTrophies",
+      "type" : "INT",
+      "comment" : null,
+      "default" : null
+    }, {
+      "name" : "requiredTrophies",
+      "type" : "INT",
+      "comment" : null,
+      "default" : null
+    }, {
+      "name" : "warsWon",
+      "type" : "INT",
+      "comment" : null,
+      "default" : null
+    }, {
+      "name" : "warsLost",
+      "type" : "INT",
+      "comment" : null,
+      "default" : null
+    }, {
+      "name" : "warsTied",
+      "type" : "INT",
+      "comment" : null,
+      "default" : null
+    }, {
+      "name" : "clanLanguage",
+      "type" : "INT",
+      "comment" : null,
+      "default" : null
+    }, {
+      "name" : "clanWarFrequency",
+      "type" : "INT",
+      "comment" : null,
+      "default" : null
+    }, {
+      "name" : "clanLocation",
+      "type" : "INT",
+      "comment" : null,
+      "default" : null
+    }, {
+      "name" : "clanPerksPoints",
+      "type" : "INT",
+      "comment" : null,
+      "default" : null
+    }, {
+      "name" : "clanLevel",
+      "type" : "INT",
       "comment" : null,
       "default" : null
     } ],
@@ -1723,7 +1855,7 @@
       "comment" : null,
       "default" : null
     }, {
-      "name" : null,
+      "name" : "clanLevel",
       "type" : "INT",
       "comment" : null,
       "default" : null
@@ -1859,8 +1991,24 @@
       "comment" : null,
       "default" : null
     }, {
-      "name" : null,
+      "name" : "clanLevel",
       "type" : "INT",
+      "comment" : null,
+      "default" : null
+    } ],
+    "extensions" : [ ]
+  }, {
+    "id" : 24310,
+    "name" : "AllianceList",
+    "comment" : null,
+    "fields" : [ {
+      "name" : "searchAlliance",
+      "type" : "STRING",
+      "comment" : null,
+      "default" : null
+    }, {
+      "name" : "searchEntries",
+      "type" : "searchEntry[]",
       "comment" : null,
       "default" : null
     } ],
