@@ -9,6 +9,7 @@
     	{"name": "maxMembers", "type" : "INT"},
     	{"name": "trophyLimit", "type" : "INT"},
     	{"name": "onlyClanUserCanJoin", "type" : "BYTE"},
+    	{"type" : "INT"},
     	{"type" : "INT"}
   	]
 }
