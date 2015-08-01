@@ -23,7 +23,7 @@ public class AllianceData {
 	public Integer clanWarFrequency;
 	public Integer clanLocation;
 	public Integer clanPerksPoints;
-	public Integer field15;
+	public Integer clanLevel;
 	public String clanDescription;
 	public Integer field17;
 	public Boolean clanInWar;
