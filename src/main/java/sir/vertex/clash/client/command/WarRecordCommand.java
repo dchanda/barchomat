@@ -21,6 +21,8 @@ public class WarRecordCommand extends CommandWakeUp {
 	private String clanSearch;
 	private Dispatcher dispatcher;
 
+	private int index = -1;
+
 	public WarRecordCommand(MessageCreator messageCreator,
 			Dispatcher dispatcher, String clanSearch) {
 		this.messageCreator = messageCreator;
@@ -28,8 +30,17 @@ public class WarRecordCommand extends CommandWakeUp {
 		this.dispatcher = dispatcher;
 	}
 
+	public WarRecordCommand(MessageCreator messageCreator,
+			Dispatcher dispatcher, String clanSearch, int index) {
+		this.messageCreator = messageCreator;
+		this.clanSearch = clanSearch;
+		this.dispatcher = dispatcher;
+		this.index = index;
+	}
+
 	@Override
 	public void execute() {
+		log.debug(clanSearch);
 		dispatcher.send(messageCreator.clanSearchRequest(clanSearch));
 		dispatcher.addWaitingCommand(this, AllianceList);
 	}
@@ -40,16 +51,25 @@ public class WarRecordCommand extends CommandWakeUp {
 		try {
 			results = Json.convertValue(message.getFields(),
 					ClanSearchResults.class);
-			String warRecrod = "";
-			if (results.searchEntries.length > 0) {
-				warRecrod = "" + results.searchEntries[0].clanName + " :"
-						+ results.searchEntries[0].warsWon + "-"
-						+ results.searchEntries[0].warsLost + "-"
-						+ results.searchEntries[0].warsTied;
+			String warRecord = "";
+			if (results.searchEntries.length > 1) {
+				if (index == -1) {
+					warRecord = "Found multiple clans:";
+					for (int i = 0; i <= 5; i++) {
+						warRecord += " " + i + ":"
+								+ results.searchEntries[i].clanName;
+					}
+					warRecord += "use !warRecord <clanname> <list number>";
+				} else {
+					warRecord = "" + results.searchEntries[index].clanName
+							+ " :" + results.searchEntries[index].warsWon + "-"
+							+ results.searchEntries[index].warsLost + "-"
+							+ results.searchEntries[index].warsTied;
+				}
 			} else {
-				warRecrod = "No results found";
+				warRecord = "No results found";
 			}
-			dispatcher.send(messageCreator.chatMessage(warRecrod));
+			dispatcher.send(messageCreator.chatMessage(warRecord));
 			return true;
 		} catch (IOException e) {
 			log.error("Error convert to ClanSearchResults class", e);

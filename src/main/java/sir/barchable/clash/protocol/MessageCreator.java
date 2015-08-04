@@ -19,7 +19,7 @@ public class MessageCreator {
 	}
 
 	public Message clanSearchRequest(String text) {
-		return clanSearchRequest(text, 0, 0, 1, 50, 0, (byte) 1);
+		return clanSearchRequest(text, 0, 0, 1, 50, 0, (byte) 0);
 	}
 
 	public Message clanSearchRequest(String text, Integer warFrequency,

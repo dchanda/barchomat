@@ -7,6 +7,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,7 +27,7 @@ import static sir.barchable.clash.protocol.Pdu.Type.VisitHome;
 
 public class Dispatcher {
 	private static final Logger log = LoggerFactory.getLogger(Dispatcher.class);
-
+	Pattern commandPattern = Pattern.compile("[^\\s\"']+|\"([^\"]*)\"|'([^']*)'");
 	private HashMap<CommandWakeUp, Type> waitingCommandList = new HashMap<CommandWakeUp, Type>();
 	private Connection connection;
 	private MessageFactory messageFactory;
@@ -54,7 +56,7 @@ public class Dispatcher {
 						dispatch(command);
 					} catch (Exception e) {
 						send(messageCreator.chatMessage("Command "+ stringCommand.substring(1) + " not found" ));
-						log.error("Error", e);
+						log.error("Command "+ stringCommand + " not found" , e);
 					}
 				}
 			}
@@ -86,26 +88,49 @@ public class Dispatcher {
 	public void addWaitingCommand(CommandWakeUp commandWakeUp, Type type) {
 		waitingCommandList.put(commandWakeUp, type);
 	}
-
+	
+	private List<String> getParamaters(String stringCommand){
+		List<String> matchList = new ArrayList<String>();
+		Matcher regexMatcher = commandPattern.matcher(stringCommand);
+		while (regexMatcher.find()) {
+		    if (regexMatcher.group(1) != null) {
+		        // Add double-quoted string without the quotes
+		        matchList.add(regexMatcher.group(1));
+		    } else if (regexMatcher.group(2) != null) {
+		        // Add single-quoted string without the quotes
+		        matchList.add(regexMatcher.group(2));
+		    } else {
+		        // Add unquoted word
+		        matchList.add(regexMatcher.group());
+		    }
+		} 
+		return matchList;
+		
+	}
 	private Command constructCommand(String stringCommand, Message message)
 			throws Exception {
+
+		List<String> parameters = getParamaters(stringCommand);
 		Command command = null;
-		if (stringCommand.equals("getTime"))
-			command = new GetTimeCommand(messageCreator, this,
-					message.getString("userName"));
-		if (stringCommand.equals("whenGems")) {
-			command = new WhenGemsCommand(messageCreator, this,
-					message.getLong("userId"));
-		}
-		if (stringCommand.equals("whenGems")) {
-			command = new WhenGemsCommand(messageCreator, this,
-					message.getLong("userId"));
-		}
-		if (stringCommand.contains("warRecord") && stringCommand.indexOf("warRecord") == 0) {
-			command = new WarRecordCommand(messageCreator, this, stringCommand.substring(10));
-		}
-		if (command == null)
-			throw new Exception("No command found");
+	
+	     switch (parameters.get(0)) {
+	         case "getTime":
+	        	 command = new GetTimeCommand(messageCreator, this,
+	 					message.getString("userName"));
+	        	 break;
+	         case "whenGems":
+	        	 command = new WhenGemsCommand(messageCreator, this,
+	 					message.getLong("userId"));
+	        	 break;
+	         case "warRecord":
+	        	 if(parameters.size() == 2)
+	        		 command = new WarRecordCommand(messageCreator, this, parameters.get(1));
+	        	 if(parameters.size() == 3)
+	        		 command = new WarRecordCommand(messageCreator, this, parameters.get(1),Integer.parseInt(parameters.get(2)));
+	             break;
+	         default:
+	        	 throw new Exception("No command found");			
+	     }
 		return command;
 	}
 

@@ -8,11 +8,9 @@ import java.io.IOException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import sir.barchable.clash.ChatBot;
 import sir.barchable.clash.model.json.Village;
 import sir.barchable.clash.protocol.Message;
 import sir.barchable.clash.protocol.MessageCreator;
-import sir.barchable.clash.protocol.Pdu.Type;
 import sir.barchable.util.Dates;
 import sir.barchable.util.Json;
 
