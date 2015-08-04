@@ -44,11 +44,6 @@ public class ClashClient {
 	
 	private SessionState sessionState = new SessionState();
 	
-	/**
-	 * Filter to run PDUs through.
-	 */
-	private PduFilterChain filterChain = new PduFilterChain();
-
 	private final Main.ClientCommand command;
 	/**
 	 * Source for the address of the real server.
@@ -73,7 +68,6 @@ public class ClashClient {
 		//
 		this.dns = new Dns(command.getNameServer());
 		
-        filterChain = new PduFilterChain();
 	}
 
 	public void run() throws IOException {
@@ -84,18 +78,8 @@ public class ClashClient {
 					Connection serverConnection = new Connection(clientSocket)) {
 				log.info("Connecting to {}:{}", serverAddress, CLASH_PORT);
 				
-				filterChain = filterChain.addAfter(new MessageTapFilter(
-		                services.getMessageFactory(),
-		                new ChatBot(services.getLogic(),serverConnection,services.getMessageFactory())
-		                //new MessageLogger(new OutputStreamWriter(System.out)).tapFor(Pdu.Type.OwnHomeData)
-		                //new VillageAnalyzer(services.getLogic()),
-		                //new AttackAnalyzer(services.getLogic())
-		            ));
-				
-				
 				ClientSession session = ClientSession.newSession(services,
-						serverConnection, command, settings.GetAccount(0),
-						filterChain);
+						serverConnection, command, settings.GetAccount(0));
 			}
 			log.info("Client {} disconnected");
 		} catch (IOException e) {

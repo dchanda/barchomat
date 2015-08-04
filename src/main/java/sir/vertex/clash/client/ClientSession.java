@@ -19,6 +19,7 @@ import sir.barchable.clash.proxy.ProxySession;
 import sir.barchable.clash.server.ServerSession;
 import sir.barchable.util.Hex;
 import sir.vertex.clash.client.Settings.Account;
+import sir.vertex.clash.client.command.Dispatcher;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -41,9 +42,10 @@ public class ClientSession {
     private Connection serverConnection;
     private MessageFactory messageFactory;
     private Account account;
-    private PduFilterChain filterChain;
+    private MessageCreator messageCreator; 
     
     private SessionState sessionState = new SessionState();
+	private Dispatcher dispatcher;
     
     /**
      * Get the session that your thread is participating in.
@@ -61,15 +63,16 @@ public class ClientSession {
      */
     private static final InheritableThreadLocal<ClientSession> localSession = new InheritableThreadLocal<>();
 
-	 private ClientSession(ClashServices services, Connection serverConnection, Main.ClientCommand command, Account account,PduFilter... filters) throws IOException {
+	 private ClientSession(ClashServices services, Connection serverConnection, Main.ClientCommand command, Account account) throws IOException {
 		 	this.messageFactory = services.getMessageFactory();
 	        this.serverConnection = serverConnection;
 	        this.account = account;
-	        this.filterChain = new PduFilterChain(filters);
+	        messageCreator = new MessageCreator(messageFactory);
+	        dispatcher = new Dispatcher(serverConnection,messageFactory);
 	    }
 
-	 public static ClientSession newSession(ClashServices services, Connection serverConnection, Main.ClientCommand command, Account account,PduFilter... filters) throws IOException {
-	        ClientSession session = new ClientSession(services, serverConnection, command,account,filters);
+	 public static ClientSession newSession(ClashServices services, Connection serverConnection, Main.ClientCommand command, Account account) throws IOException {
+	        ClientSession session = new ClientSession(services, serverConnection, command,account);
 	        try {
 
 	            //
@@ -93,39 +96,22 @@ public class ClientSession {
 	     */
 	    private void run() {
 	    	try {
-	        	Message loginMessage = messageFactory.newMessage(Login);
-
-	        	loginMessage.set("userId", account.userId);
-	        	loginMessage.set("userToken", account.userToken);
-	        	loginMessage.set("udid", account.udid);
-	        	loginMessage.set("openUdid", account.openUdid);
-	        	loginMessage.set("mac", account.mac);
-	        	loginMessage.set("phoneModel", account.phoneModel);
-	        	loginMessage.set("locale", account.locale);
-	        	loginMessage.set("language", account.language);
-	        	loginMessage.set("advertisingIdentifier", account.advertisingIdentifier);
-	        	loginMessage.set("osVersion", account.osVersion);
-	        	loginMessage.set("androidDeviceId", account.androidDeviceId);
-	        	loginMessage.set("facebookAttributionId", account.facebookAttributionId);
-	        	loginMessage.set("advertisingTrackingEnabled", account.advertisingTrackingEnabled);
-	        	loginMessage.set("vendorUuid", account.vendorUuid);
-	        	loginMessage.set("clientSeed", 14870668); // Not good, make random
-	        	
-	        	loginMessage.set("majorVersion", 7); // Not good, were store constants?
-	        	loginMessage.set("minorVersion", 156); // Not good, were store constants?
-	        	loginMessage.set("masterHash", "77d150027859d9ad0d37fb30696c66cdbd2a0d9e"); // Not good, make dynamic
+	    		
+	    		Message loginMessage = messageCreator.loginMessage(account);
 	        	
 	            serverConnection.getOut().write(messageFactory.toPdu(loginMessage));
 	        		           
 	            LoginKeyTap keyListener = new LoginKeyTap();    
 	            keyListener.setPrng(new Clash7Random((Integer) loginMessage.get("clientSeed")));
 	            PduFilter loginFilter = new MessageTapFilter(messageFactory, keyListener);
+	            
 	            log.debug("Key exchange");
 	            do {
 	            	log.debug("Try next package");
 	            	loginFilter.filter(serverConnection.getIn().read());
 	            } while (keyListener.getKey() == null);
 	            log.debug("Key received");
+	            
 	            byte[] key = keyListener.getKey();
 	            // Re-key the stream
 	            serverConnection.setKey(key);
@@ -143,14 +129,7 @@ public class ClientSession {
 	        try {
 	            while (running.get()) {
 	            	log.debug("Receive");
-	                //
-	                // Read a request PDU
-	                //
-
-	                Pdu pdu = connection.getIn().read();
-	                
-	                filterChain.filter(pdu);
-
+	                dispatcher.dispatch(messageFactory.fromPdu(connection.getIn().read()));
 	            }
 
 	            log.info("{} done", connection.getName());
