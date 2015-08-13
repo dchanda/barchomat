@@ -83,7 +83,7 @@ public class MessageCreator {
 		
 		loginMessage.set("majorVersion", 7); // Not good, were store constants?
 		loginMessage.set("minorVersion", 156); // Not good, were store constants?
-		loginMessage.set("masterHash", "77d150027859d9ad0d37fb30696c66cdbd2a0d9e"); // Not good, make dynamic
+		loginMessage.set("masterHash", "ae9b056807ac8bfa58a3e879b1f1601ff17d1df5"); // Not good, make dynamic
 		return loginMessage;
 	}
 	
