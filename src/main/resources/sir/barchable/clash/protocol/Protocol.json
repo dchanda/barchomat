@@ -2025,6 +2025,82 @@
     } ],
     "extensions" : [ ]
   }, {
+    "id" : 24308,
+    "name" : "AllianceMember",
+    "comment" : null,
+    "fields" : [ {
+      "name" : null,
+      "type" : "LONG",
+      "comment" : null,
+      "default" : null
+    }, {
+      "name" : null,
+      "type" : "STRING",
+      "comment" : null,
+      "default" : null
+    }, {
+      "name" : null,
+      "type" : "INT",
+      "comment" : null,
+      "default" : null
+    }, {
+      "name" : null,
+      "type" : "INT",
+      "comment" : null,
+      "default" : null
+    }, {
+      "name" : null,
+      "type" : "INT",
+      "comment" : null,
+      "default" : null
+    }, {
+      "name" : null,
+      "type" : "INT",
+      "comment" : null,
+      "default" : null
+    }, {
+      "name" : null,
+      "type" : "INT",
+      "comment" : null,
+      "default" : null
+    }, {
+      "name" : null,
+      "type" : "INT",
+      "comment" : null,
+      "default" : null
+    }, {
+      "name" : null,
+      "type" : "INT",
+      "comment" : null,
+      "default" : null
+    }, {
+      "name" : null,
+      "type" : "INT",
+      "comment" : null,
+      "default" : null
+    }, {
+      "name" : null,
+      "type" : "BYTE",
+      "comment" : null,
+      "default" : null
+    }, {
+      "name" : null,
+      "type" : "INT",
+      "comment" : null,
+      "default" : null
+    }, {
+      "name" : null,
+      "type" : "INT",
+      "comment" : null,
+      "default" : null
+    }, {
+      "name" : null,
+      "type" : "?LONG",
+      "comment" : null,
+      "default" : null
+    } ],
+    "extensions" : [ ]
+  }, {
     "id" : 24309,
     "name" : "AllianceMemberRemoved",
     "comment" : null,
