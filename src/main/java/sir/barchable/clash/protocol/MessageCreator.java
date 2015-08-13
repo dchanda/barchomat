@@ -4,6 +4,7 @@ import static sir.barchable.clash.protocol.Pdu.Type.ChatToAllianceStream;
 import static sir.barchable.clash.protocol.Pdu.Type.Login;
 import static sir.barchable.clash.protocol.Pdu.Type.SearchAlliances;
 import static sir.barchable.clash.protocol.Pdu.Type.VisitHome;
+import static sir.barchable.clash.protocol.Pdu.Type.AskForAllianceData;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -91,5 +92,11 @@ public class MessageCreator {
 		Message visitHome = messageFactory.newMessage(VisitHome);
 		visitHome.set("homeId", homeId);
 		return visitHome;
+	}
+	
+	public Message askForAllianceDataMessage(Long clanId) {
+		Message askForAllianceData = messageFactory.newMessage(AskForAllianceData);
+		askForAllianceData.set("clanId", clanId);
+		return askForAllianceData;
 	}
 }
