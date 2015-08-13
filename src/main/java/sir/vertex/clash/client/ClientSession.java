@@ -43,10 +43,10 @@ public class ClientSession {
     private MessageFactory messageFactory;
     private Account account;
     private MessageCreator messageCreator; 
-    
+
     private SessionState sessionState = new SessionState();
-	private Dispatcher dispatcher;
-    
+    private Dispatcher dispatcher;
+
     /**
      * Get the session that your thread is participating in.
      *
@@ -55,100 +55,96 @@ public class ClientSession {
     public static ClientSession getSession() {
         return localSession.get();
     }
+
     public SessionState getSessionState() {
         return sessionState;
     }
+
     /**
      * Thread local session.
      */
     private static final InheritableThreadLocal<ClientSession> localSession = new InheritableThreadLocal<>();
 
-	 private ClientSession(ClashServices services, Connection serverConnection, Main.ClientCommand command, Account account) throws IOException {
-		 	this.messageFactory = services.getMessageFactory();
-	        this.serverConnection = serverConnection;
-	        this.account = account;
-	        messageCreator = new MessageCreator(messageFactory);
-	        dispatcher = new Dispatcher(serverConnection,messageFactory);
-	    }
+    private ClientSession(ClashServices services, Connection serverConnection, Main.ClientCommand command, Account account) throws IOException {
+        this.messageFactory = services.getMessageFactory();
+        this.serverConnection = serverConnection;
+        this.account = account;
+        messageCreator = new MessageCreator(messageFactory);
+        dispatcher = new Dispatcher(serverConnection,messageFactory);
+    }
 
-	 public static ClientSession newSession(ClashServices services, Connection serverConnection, Main.ClientCommand command, Account account) throws IOException {
-	        ClientSession session = new ClientSession(services, serverConnection, command,account);
-	        try {
+    public static ClientSession newSession(ClashServices services, Connection serverConnection, Main.ClientCommand command, Account account) throws IOException {
+        ClientSession session = new ClientSession(services, serverConnection, command,account);
+        try {
+            //
+            // We run the uninterruptable IO in a separate thread to maintain an interruptable controlling thread from
+            // which can stop processing by closing the input stream.
+            //
+            Thread t = new Thread(session::run, serverConnection.getName() + " server");
+            t.start();
+            t.join();
+        } catch (InterruptedException e) {
+            session.shutdown();
+        } finally {
+        }
+        return session;
+    }
 
-	            //
-	            // We run the uninterruptable IO in a separate thread to maintain an interruptable controlling thread from
-	            // which can stop processing by closing the input stream.
-	            //
+    /**
+     * Process the key exchange then loop to process PDUs from the client.
+     */
+    private void run() {
+        try {
+            Message loginMessage = messageCreator.loginMessage(account);
 
-	            Thread t = new Thread(session::run, serverConnection.getName() + " server");
-	            t.start();
-	            t.join();
+            serverConnection.getOut().write(messageFactory.toPdu(loginMessage));
 
-	        } catch (InterruptedException e) {
-	            session.shutdown();
-	        } finally {
-	        }
-	        return session;
-	    }
-	 
-	   /**
-	     * Process the key exchange then loop to process PDUs from the client.
-	     */
-	    private void run() {
-	    	try {
-	    		
-	    		Message loginMessage = messageCreator.loginMessage(account);
-	        	
-	            serverConnection.getOut().write(messageFactory.toPdu(loginMessage));
-	        		           
-	            LoginKeyTap keyListener = new LoginKeyTap();    
-	            keyListener.setPrng(new Clash7Random((Integer) loginMessage.get("clientSeed")));
-	            PduFilter loginFilter = new MessageTapFilter(messageFactory, keyListener);
-	            
-	            log.debug("Key exchange");
-	            do {
-	            	log.debug("Try next package");
-	            	loginFilter.filter(serverConnection.getIn().read());
-	            } while (keyListener.getKey() == null);
-	            log.debug("Key received");
-	            
-	            byte[] key = keyListener.getKey();
-	            // Re-key the stream
-	            serverConnection.setKey(key);
+            LoginKeyTap keyListener = new LoginKeyTap();    
+            keyListener.setPrng(new Clash7Random((Integer) loginMessage.get("clientSeed")));
+            PduFilter loginFilter = new MessageTapFilter(messageFactory, keyListener);
 
-	            processRequests(serverConnection);
+            log.debug("Key exchange");
+            do {
+                log.debug("Try next package");
+                loginFilter.filter(serverConnection.getIn().read());
+            } while (keyListener.getKey() == null);
+            log.debug("Key received");
 
-	        } catch (PduException | IOException e) {
-	            log.error("Key exchange did not complete: " + e, e);
-	        }
-	    }
-	    
-	    private void processRequests(Connection connection) {
-	    	Timer autoSendtimer = new Timer();
-	    	autoSendtimer.schedule(new AutoSend(serverConnection.getOut(),messageFactory), 0, 5000);
-	        try {
-	            while (running.get()) {
-	            	log.debug("Receive");
-	                dispatcher.dispatch(messageFactory.fromPdu(connection.getIn().read()));
-	            }
+            byte[] key = keyListener.getKey();
+            // Re-key the stream
+            serverConnection.setKey(key);
 
-	            log.info("{} done", connection.getName());
-	        } catch (RuntimeException | IOException e) {
-	            log.info(
-	                "{} terminating: {}",
-	                connection.getName(),
-	                e
-	            );
-	        }
-	        autoSendtimer.cancel();
-	    }
+            processRequests(serverConnection);
+        } catch (PduException | IOException e) {
+            log.error("Key exchange did not complete: " + e, e);
+        }
+    }
 
-	    /**
-	     * A hint that processing should stop. Just sets a flag and waits for the processing threads to notice. If you
-	     * really want processing to stop in a hurry close the input streams.
-	     */
-	    public void shutdown() {
-	        running.set(false);
-	    }
-	 
+    private void processRequests(Connection connection) {
+        Timer autoSendtimer = new Timer();
+        autoSendtimer.schedule(new AutoSend(serverConnection.getOut(),messageFactory), 0, 5000);
+        try {
+            while (running.get()) {
+                log.debug("Receive");
+                dispatcher.dispatch(messageFactory.fromPdu(connection.getIn().read()));
+            }
+
+            log.info("{} done", connection.getName());
+        } catch (RuntimeException | IOException e) {
+            log.info(
+                "{} terminating: {}",
+                connection.getName(),
+                e
+            );
+        }
+        autoSendtimer.cancel();
+    }
+
+    /**
+     * A hint that processing should stop. Just sets a flag and waits for the processing threads to notice. If you
+     * really want processing to stop in a hurry close the input streams.
+     */
+    public void shutdown() {
+        running.set(false);
+    }
 }
