@@ -1,5 +1,16 @@
 {
   "messages" : [ {
+    "id" : 14302,
+    "name" : "AskForAllianceData",
+    "comment" : null,
+    "fields" : [ {
+      "name" : "clanId",
+      "type" : "LONG",
+      "comment" : null,
+      "default" : null
+    } ],
+    "extensions" : [ ]
+  }, {
     "id" : 14325,
     "name" : "AskForAvatarProfile",
     "comment" : null,
@@ -2009,6 +2020,17 @@
     }, {
       "name" : "searchEntries",
       "type" : "searchEntry[]",
+      "comment" : null,
+      "default" : null
+    } ],
+    "extensions" : [ ]
+  }, {
+    "id" : 24309,
+    "name" : "AllianceMemberRemoved",
+    "comment" : null,
+    "fields" : [ {
+      "name" : null,
+      "type" : "LONG",
       "comment" : null,
       "default" : null
     } ],
