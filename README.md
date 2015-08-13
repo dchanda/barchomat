@@ -21,11 +21,12 @@ The best is a separate account, member of the clan, to retrieve private clan dat
 
 ## OK, how do I make it go?
 
-To run the proxy you'll need Java 8, a copy of the proxy, and a copy of the game.
+To run the proxy you'll need Java 8, maven, a copy of the proxy, and a copy of the game.
 The client reads game logic (hit points, dps etc for the various characters and buildings) from 
 the android version of executable, which you'll need to find yourself (Google "clash of clans apk"). Put the client and 
 the game executable in the same directory and start the proxy from the command line:
 
+    mvn package
     java -jar barchomat.jar client
 
 ## This is crap, and I want to help make it better
