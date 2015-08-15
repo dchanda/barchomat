@@ -10,9 +10,7 @@ public class MessageQueueSend {
 	}
 
 	public Message getMessage(MessageFactory messageFactory) {
-		Message message = messageFactory.newMessage(this.getType());
-
-		return message;
+		return messageFactory.newMessage(this.getType());
 	}
 
 	public void setType(Pdu.Type type) {

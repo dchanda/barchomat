@@ -49,8 +49,7 @@ public class MessageQueueItem {
 
 				sink.write(messageFactory.toPdu(message));
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				log.error("MessageQueueSend failed", e);
 			}
 		}
 	}
