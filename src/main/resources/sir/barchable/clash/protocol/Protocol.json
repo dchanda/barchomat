@@ -2482,6 +2482,17 @@
     } ],
     "extensions" : [ ]
   }, {
+    "id" : 25892,
+    "name" : "Disconnected",
+    "comment" : null,
+    "fields" : [ {
+      "name" : null,
+      "type" : "INT",
+      "comment" : null,
+      "default" : null
+    } ],
+    "extensions" : [ ]
+  }, {
     "id" : 20000,
     "name" : "Encryption",
     "comment" : null,
