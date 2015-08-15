@@ -17,9 +17,12 @@ import sir.barchable.clash.proxy.PduFilter;
 import sir.barchable.clash.proxy.PduFilterChain;
 import sir.barchable.clash.proxy.ProxySession;
 import sir.barchable.clash.server.ServerSession;
+import sir.barchable.clash.protocol.Message;
 import sir.barchable.util.Hex;
 import sir.vertex.clash.client.Settings.Account;
 import sir.vertex.clash.client.command.Dispatcher;
+import sir.multiply.clash.messagequeue.MessageQueue;
+import sir.multiply.clash.client.AutoKeepAlive;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -28,7 +31,6 @@ import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.util.Arrays;
 import java.util.Map;
-import java.util.Timer;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -46,6 +48,7 @@ public class ClientSession {
 
     private SessionState sessionState = new SessionState();
     private Dispatcher dispatcher;
+    private MessageQueue messageQueue;
 
     /**
      * Get the session that your thread is participating in.
@@ -71,6 +74,7 @@ public class ClientSession {
         this.account = account;
         messageCreator = new MessageCreator(messageFactory);
         dispatcher = new Dispatcher(serverConnection,messageFactory);
+        messageQueue = new MessageQueue(serverConnection, messageFactory);
     }
 
     public static ClientSession newSession(ClashServices services, Connection serverConnection, Main.ClientCommand command, Account account) throws IOException {
@@ -121,12 +125,25 @@ public class ClientSession {
     }
 
     private void processRequests(Connection connection) {
-        Timer autoSendtimer = new Timer();
-        autoSendtimer.schedule(new AutoSend(serverConnection.getOut(),messageFactory), 0, 5000);
+        new AutoKeepAlive(this.messageQueue);
+
         try {
             while (running.get()) {
-                log.debug("Receive");
-                dispatcher.dispatch(messageFactory.fromPdu(connection.getIn().read()));
+                try {
+                    Pdu pdu = connection.getIn().read();
+                    Message message = messageFactory.fromPdu(pdu);
+
+                    log.debug("Receive {} ({})", message.getTypeName(), Integer.toString(pdu.getId()));
+
+                    dispatcher.dispatch(message);
+                    messageQueue.process(pdu, message);
+                }
+                catch (TypeException e) {
+                    log.warn("Type Exception: {}", e.getMessage());
+                }
+                catch (PduException e) {
+                    log.warn("Message definition is missing: {}", e);
+                }
             }
 
             log.info("{} done", connection.getName());
@@ -137,7 +154,6 @@ public class ClientSession {
                 e
             );
         }
-        autoSendtimer.cancel();
     }
 
     /**
