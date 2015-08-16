@@ -1230,57 +1230,57 @@
       "comment" : null,
       "default" : null
     }, {
-      "name" : null,
+      "name" : "legendTrophies",
       "type" : "INT",
       "comment" : null,
       "default" : null
     }, {
-      "name" : null,
+      "name" : "bestSeasonEnabled",
       "type" : "INT",
       "comment" : null,
       "default" : null
     }, {
-      "name" : null,
+      "name" : "bestSeasonMonth",
       "type" : "INT",
       "comment" : null,
       "default" : null
     }, {
-      "name" : null,
+      "name" : "bestSeasonYear",
       "type" : "INT",
       "comment" : null,
       "default" : null
     }, {
-      "name" : null,
+      "name" : "bestSeasonPosition",
       "type" : "INT",
       "comment" : null,
       "default" : null
     }, {
-      "name" : null,
+      "name" : "bestSeasonTrophies",
       "type" : "INT",
       "comment" : null,
       "default" : null
     }, {
-      "name" : null,
+      "name" : "lastSeasonEnabled",
       "type" : "INT",
       "comment" : null,
       "default" : null
     }, {
-      "name" : null,
+      "name" : "lastSeasonMonth",
       "type" : "INT",
       "comment" : null,
       "default" : null
     }, {
-      "name" : null,
+      "name" : "lastSeasonYear",
       "type" : "INT",
       "comment" : null,
       "default" : null
     }, {
-      "name" : null,
+      "name" : "lastSeasonPosition",
       "type" : "INT",
       "comment" : null,
       "default" : null
     }, {
-      "name" : null,
+      "name" : "lastSeasonTrophies",
       "type" : "INT",
       "comment" : null,
       "default" : null
@@ -1350,7 +1350,7 @@
       "comment" : null,
       "default" : null
     }, {
-      "name" : null,
+      "name" : "attackWon",
       "type" : "INT",
       "comment" : null,
       "default" : null
@@ -1360,7 +1360,7 @@
       "comment" : null,
       "default" : null
     }, {
-      "name" : null,
+      "name" : "defencesWon",
       "type" : "INT",
       "comment" : null,
       "default" : null
@@ -2378,6 +2378,57 @@
     }, {
       "name" : null,
       "type" : "INT",
+      "comment" : null,
+      "default" : null
+    } ],
+    "extensions" : [ ]
+  }, {
+    "id" : 24334,
+    "name" : "AvatarProfile",
+    "comment" : null,
+    "fields" : [ {
+      "name" : "user",
+      "type" : "UserComponent",
+      "comment" : null,
+      "default" : null
+    }, {
+      "name" : "resources",
+      "type" : "ResourceListComponent",
+      "comment" : null,
+      "default" : null
+    }, {
+      "name" : null,
+      "type" : "INT",
+      "comment" : null,
+      "default" : null
+    }, {
+      "name" : "homeVillage",
+      "type" : "ZIP_STRING",
+      "comment" : null,
+      "default" : null
+    }, {
+      "name" : "troopsDonated",
+      "type" : "INT",
+      "comment" : null,
+      "default" : null
+    }, {
+      "name" : "troopsRecieved",
+      "type" : "INT",
+      "comment" : null,
+      "default" : null
+    }, {
+      "name" : null,
+      "type" : "INT",
+      "comment" : null,
+      "default" : null
+    }, {
+      "name" : null,
+      "type" : "INT",
+      "comment" : null,
+      "default" : null
+    }, {
+      "name" : null,
+      "type" : "BOOLEAN",
       "comment" : null,
       "default" : null
     } ],
