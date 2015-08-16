@@ -53,6 +53,22 @@
     } ],
     "extensions" : [ ]
   }, {
+    "id" : 14306,
+    "name" : "ChangeAllianceMemberRole",
+    "comment" : null,
+    "fields" : [ {
+      "name" : null,
+      "type" : "LONG",
+      "comment" : null,
+      "default" : null
+    }, {
+      "name" : null,
+      "type" : "INT",
+      "comment" : null,
+      "default" : null
+    } ],
+    "extensions" : [ ]
+  }, {
     "id" : 14315,
     "name" : "ChatToAllianceStream",
     "comment" : null,
