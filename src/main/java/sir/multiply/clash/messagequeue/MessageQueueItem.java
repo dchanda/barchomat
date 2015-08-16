@@ -20,6 +20,7 @@ public class MessageQueueItem {
 	public List<MessageQueueExpect> expectList = new ArrayList<MessageQueueExpect>();
 	private MessageQueueCallback callback = null;
 	private Boolean isCallbackCalled = false;
+	private Integer timeout = 5000;
 
 	public MessageQueueItem(ArrayList<MessageQueueSend> sendList, ArrayList<MessageQueueExpect> expectList, MessageQueueCallback callback) {
 		this.sendList.addAll(sendList);
@@ -72,5 +73,13 @@ public class MessageQueueItem {
 		}
 
 		return status;
+	}
+
+	public void setTimeout(Integer timeout) {
+		this.timeout = timeout;
+	}
+
+	public Integer getTimeout() {
+		return this.timeout;
 	}
 }

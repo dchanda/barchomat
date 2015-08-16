@@ -23,6 +23,7 @@ import sir.vertex.clash.client.Settings.Account;
 import sir.vertex.clash.client.command.Dispatcher;
 import sir.multiply.clash.messagequeue.MessageQueue;
 import sir.multiply.clash.client.AutoKeepAlive;
+import sir.multiply.clash.api.API;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -126,6 +127,7 @@ public class ClientSession {
 
     private void processRequests(Connection connection) {
         new AutoKeepAlive(this.messageQueue);
+        new API(this.messageQueue, this.messageFactory);
 
         try {
             while (running.get()) {
@@ -133,7 +135,7 @@ public class ClientSession {
                     Pdu pdu = connection.getIn().read();
                     Message message = messageFactory.fromPdu(pdu);
 
-                    log.debug("Receive {} ({})", message.getTypeName(), Integer.toString(pdu.getId()));
+                    log.debug("Receive {} ({}): {}", message.getTypeName(), Integer.toString(pdu.getId()), message.toString());
 
                     dispatcher.dispatch(message);
                     messageQueue.process(pdu, message);
