@@ -69,5 +69,4 @@ public final class Json {
     public static <T> T convertValue(Object m, Class<T> type) throws IOException {
         return mapper.convertValue(m, type);
     }
-    
 }
