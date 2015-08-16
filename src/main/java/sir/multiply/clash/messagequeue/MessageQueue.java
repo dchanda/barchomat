@@ -23,12 +23,14 @@ public class MessageQueue {
 		this.sink = connection.getOut();
 	}
 
-	public void addItem(MessageQueueItem item) {
+	public MessageQueueItem addItem(MessageQueueItem item) {
 		this.queue.add(item);
 
 		if (this.currentItem == null) {
 			this.next();
 		}
+
+		return item;
 	}
 
 	public Boolean next() {

@@ -13,7 +13,6 @@ import sir.multiply.clash.api.JsonTransformer;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.concurrent.CountDownLatch;
 
 public class API {
 	private static final Logger log = LoggerFactory.getLogger(API.class);
@@ -32,7 +31,6 @@ public class API {
 		});
 
 		get("/api/clan/:id", (req, res) -> {
-			final CountDownLatch latch = new CountDownLatch(1);
 			Map<String, Object> result = new LinkedHashMap<>();
 
 			Message message = API.this.messageFactory.newMessage(Pdu.Type.AskForAllianceData);
@@ -41,12 +39,6 @@ public class API {
 			MessageQueueSend send = new MessageQueueSend(message);
 
 			MessageQueueExpect expect = new MessageQueueExpect() {
-				private Boolean complete = false;
-
-				public Boolean isComplete() {
-					return this.complete;
-				}
-
 				public Boolean process(Pdu pdu, Message message) {
 					if (pdu.getType() != Pdu.Type.AllianceData) {
 						return false;
@@ -56,28 +48,18 @@ public class API {
 					result.put("members", clan.remove("clanMembers"));
 					result.put("clan", clan);
 
-					this.complete = true;
-					return this.isComplete();
+					return this.isComplete(true);
 				}
 			};
 
-			MessageQueueCallback callback = new MessageQueueCallback() {
-				public void run(MessageQueueItem item) {
-					latch.countDown();
-				}
-			};
+			MessageQueueItem item = new MessageQueueItem(send, expect);
 
-			MessageQueueItem item = new MessageQueueItem(send, expect, callback);
-
-			API.this.messageQueue.addItem(item);
-
-			latch.await();
+			API.this.messageQueue.addItem(item).await();
 
 			return result;
 		}, new JsonTransformer());
 
 		get("/api/player/village/:id", (req, res) -> {
-			final CountDownLatch latch = new CountDownLatch(1);
 			Map<String, Object> result = new LinkedHashMap<>();
 
 			Message message = API.this.messageFactory.newMessage(Pdu.Type.VisitHome);
@@ -86,12 +68,6 @@ public class API {
 			MessageQueueSend send = new MessageQueueSend(message);
 
 			MessageQueueExpect expect = new MessageQueueExpect() {
-				private Boolean complete = false;
-
-				public Boolean isComplete() {
-					return this.complete;
-				}
-
 				public Boolean process(Pdu pdu, Message message) {
 					if (pdu.getType() != Pdu.Type.VisitedHomeData) {
 						return false;
@@ -110,22 +86,13 @@ public class API {
 
 					result.put("village", village);
 
-					this.complete = true;
-					return this.isComplete();
+					return this.isComplete(true);
 				}
 			};
 
-			MessageQueueCallback callback = new MessageQueueCallback() {
-				public void run(MessageQueueItem item) {
-					latch.countDown();
-				}
-			};
+			MessageQueueItem item = new MessageQueueItem(send, expect);
 
-			MessageQueueItem item = new MessageQueueItem(send, expect, callback);
-
-			API.this.messageQueue.addItem(item);
-
-			latch.await();
+			API.this.messageQueue.addItem(item).await();
 
 			return result;
 		}, new JsonTransformer());

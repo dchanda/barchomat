@@ -27,19 +27,12 @@ public class AutoKeepAlive {
 	private void addToQueue() {
 		MessageQueueSend send = new MessageQueueSend(KeepAlive);
 		MessageQueueExpect expect = new MessageQueueExpect() {
-			private Boolean complete = false;
-
-			public Boolean isComplete() {
-				return this.complete;
-			}
-
 			public Boolean process(Pdu pdu, Message message) {
 				if (pdu.getType() != ServerKeepAlive) {
 					return false;
 				}
 
-				this.complete = true;
-				return this.isComplete();
+				return this.isComplete(true);
 			}
 		};
 		MessageQueueCallback callback = new MessageQueueCallback() {
