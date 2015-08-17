@@ -2178,7 +2178,7 @@
       "comment" : null,
       "default" : null
     }, {
-      "name" : null,
+      "name" : "level",
       "type" : "INT",
       "comment" : null,
       "default" : null
