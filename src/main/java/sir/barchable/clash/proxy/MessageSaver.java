@@ -42,7 +42,7 @@ public class MessageSaver implements PduFilter {
         this(
             messageFactory,
             saveDir,
-            OwnHomeData, VisitedHomeData, EnemyHomeData, WarHomeData, HomeBattleReplayData
+            OwnHomeData, VisitedHomeData, EnemyHomeData, AllianceWarVisitData, HomeBattleReplayData
         );
     }
 
@@ -97,7 +97,7 @@ public class MessageSaver implements PduFilter {
                     villageName = user.getString("userName");
                     break;
 
-                case WarHomeData:
+                case AllianceWarVisitData:
                     WarVillage warVillage = Json.valueOf(message.getString("homeVillage"), WarVillage.class);
                     villageName = warVillage.name;
                     break;

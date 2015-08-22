@@ -54,7 +54,7 @@ public class VillageAnalyzer implements MessageTap {
                 }
                 break;
 
-            case WarHomeData:
+            case AllianceWarVisitData:
                 try {
                     WarVillage village = Json.valueOf(homeVillage, WarVillage.class);
                     analyzeWarVillage(message, village);
