@@ -4,13 +4,8 @@
     "name" : "AllianceWarAttackAvatar",
     "comment" : null,
     "fields" : [ {
-      "name" : null,
-      "type" : "INT",
-      "comment" : null,
-      "default" : null
-    }, {
-      "name" : null,
-      "type" : "INT",
+      "name" : "homeId",
+      "type" : "LONG",
       "comment" : null,
       "default" : null
     } ],
@@ -43,11 +38,6 @@
     }, {
       "name" : null,
       "type" : "?LONG",
-      "comment" : null,
-      "default" : null
-    }, {
-      "name" : null,
-      "type" : "BYTE",
       "comment" : null,
       "default" : null
     } ],

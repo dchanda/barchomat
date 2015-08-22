@@ -2,7 +2,6 @@
   "id": 15001,
   "name": "AllianceWarAttackAvatar",
   "fields": [
-    {"type": "INT"},
-    {"type": "INT"}
+    {"name": "homeId", "type": "LONG"}
   ]
 }
