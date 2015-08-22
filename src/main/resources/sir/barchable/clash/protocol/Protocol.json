@@ -32,22 +32,17 @@
     "comment" : null,
     "fields" : [ {
       "name" : null,
-      "type" : "INT",
+      "type" : "LONG",
       "comment" : null,
       "default" : null
     }, {
       "name" : null,
-      "type" : "INT",
+      "type" : "LONG",
       "comment" : null,
       "default" : null
     }, {
       "name" : null,
-      "type" : "INT",
-      "comment" : null,
-      "default" : null
-    }, {
-      "name" : null,
-      "type" : "INT",
+      "type" : "?LONG",
       "comment" : null,
       "default" : null
     }, {
@@ -2465,6 +2460,94 @@
     } ],
     "extensions" : [ ]
   }, {
+    "id" : 24335,
+    "name" : "AllianceWarData",
+    "comment" : null,
+    "fields" : [ {
+      "name" : null,
+      "type" : "INT",
+      "comment" : null,
+      "default" : null
+    }, {
+      "name" : null,
+      "type" : "INT",
+      "comment" : null,
+      "default" : null
+    }, {
+      "name" : null,
+      "type" : "WarTeam",
+      "comment" : null,
+      "default" : null
+    }, {
+      "name" : null,
+      "type" : "?WarTeam",
+      "comment" : null,
+      "default" : null
+    }, {
+      "name" : null,
+      "type" : "?LONG",
+      "comment" : null,
+      "default" : null
+    }, {
+      "name" : null,
+      "type" : "INT[]",
+      "comment" : null,
+      "default" : null
+    } ],
+    "extensions" : [ ]
+  }, {
+    "id" : 24338,
+    "name" : "AllianceWarHistory",
+    "comment" : null,
+    "fields" : [ {
+      "name" : "entries",
+      "type" : "WarLogEntry[]",
+      "comment" : null,
+      "default" : null
+    } ],
+    "extensions" : [ ]
+  }, {
+    "id" : 25000,
+    "name" : "AllianceWarVisitData",
+    "comment" : null,
+    "fields" : [ {
+      "name" : "userId",
+      "type" : "LONG",
+      "comment" : null,
+      "default" : null
+    }, {
+      "name" : "homeId",
+      "type" : "LONG",
+      "comment" : null,
+      "default" : null
+    }, {
+      "name" : "homeVillage",
+      "type" : "ZIP_STRING",
+      "comment" : null,
+      "default" : null
+    }, {
+      "name" : null,
+      "type" : "INT",
+      "comment" : null,
+      "default" : null
+    }, {
+      "name" : null,
+      "type" : "BOOLEAN",
+      "comment" : null,
+      "default" : null
+    }, {
+      "name" : "user",
+      "type" : "UserComponent",
+      "comment" : null,
+      "default" : null
+    }, {
+      "name" : "resources",
+      "type" : "ResourceListComponent",
+      "comment" : null,
+      "default" : null
+    } ],
+    "extensions" : [ ]
+  }, {
     "id" : 14302,
     "name" : "AskForAllianceData",
     "comment" : null,
@@ -3103,94 +3186,6 @@
     }, {
       "name" : "resources",
       "type" : "ResourceListComponent",
-      "comment" : null,
-      "default" : null
-    } ],
-    "extensions" : [ ]
-  }, {
-    "id" : 24335,
-    "name" : "WarDonations",
-    "comment" : null,
-    "fields" : [ {
-      "name" : null,
-      "type" : "INT",
-      "comment" : null,
-      "default" : null
-    }, {
-      "name" : null,
-      "type" : "INT",
-      "comment" : null,
-      "default" : null
-    }, {
-      "name" : null,
-      "type" : "WarTeam",
-      "comment" : null,
-      "default" : null
-    }, {
-      "name" : null,
-      "type" : "?WarTeam",
-      "comment" : null,
-      "default" : null
-    }, {
-      "name" : null,
-      "type" : "?LONG",
-      "comment" : null,
-      "default" : null
-    }, {
-      "name" : null,
-      "type" : "INT[]",
-      "comment" : null,
-      "default" : null
-    } ],
-    "extensions" : [ ]
-  }, {
-    "id" : 25000,
-    "name" : "WarHomeData",
-    "comment" : null,
-    "fields" : [ {
-      "name" : "userId",
-      "type" : "LONG",
-      "comment" : null,
-      "default" : null
-    }, {
-      "name" : "homeId",
-      "type" : "LONG",
-      "comment" : null,
-      "default" : null
-    }, {
-      "name" : "homeVillage",
-      "type" : "ZIP_STRING",
-      "comment" : null,
-      "default" : null
-    }, {
-      "name" : null,
-      "type" : "INT",
-      "comment" : null,
-      "default" : null
-    }, {
-      "name" : null,
-      "type" : "BOOLEAN",
-      "comment" : null,
-      "default" : null
-    }, {
-      "name" : "user",
-      "type" : "UserComponent",
-      "comment" : null,
-      "default" : null
-    }, {
-      "name" : "resources",
-      "type" : "ResourceListComponent",
-      "comment" : null,
-      "default" : null
-    } ],
-    "extensions" : [ ]
-  }, {
-    "id" : 24338,
-    "name" : "WarLog",
-    "comment" : null,
-    "fields" : [ {
-      "name" : "entries",
-      "type" : "WarLogEntry[]",
       "comment" : null,
       "default" : null
     } ],
