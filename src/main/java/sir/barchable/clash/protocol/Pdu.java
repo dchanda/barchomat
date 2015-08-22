@@ -68,6 +68,7 @@ public class Pdu {
         AskForAvatarProfile(14325),
         SendAllianceMail(14330),
         HomeShareReplay(14331),
+        AskForAllianceWarData(14336),
         AskForAllianceRankingList(14401),
         AskForAvatarRankingList(14403),
         AskForAvatarLocalRankingList(14404),

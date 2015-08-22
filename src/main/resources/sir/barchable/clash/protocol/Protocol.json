@@ -22,6 +22,22 @@
     } ],
     "extensions" : [ ]
   }, {
+    "id" : 14336,
+    "name" : "AskForAllianceWarData",
+    "comment" : null,
+    "fields" : [ {
+      "name" : "clanId",
+      "type" : "LONG",
+      "comment" : null,
+      "default" : null
+    }, {
+      "name" : "warId",
+      "type" : "LONG",
+      "comment" : null,
+      "default" : null
+    } ],
+    "extensions" : [ ]
+  }, {
     "id" : 14325,
     "name" : "AskForAvatarProfile",
     "comment" : null,
@@ -1498,17 +1514,12 @@
       "comment" : null,
       "default" : null
     }, {
-      "name" : null,
-      "type" : "INT",
+      "name" : "warId",
+      "type" : "LONG",
       "comment" : null,
       "default" : null
     }, {
-      "name" : null,
-      "type" : "INT",
-      "comment" : null,
-      "default" : null
-    }, {
-      "name" : null,
+      "name" : "warMemberCount",
       "type" : "INT",
       "comment" : null,
       "default" : null
