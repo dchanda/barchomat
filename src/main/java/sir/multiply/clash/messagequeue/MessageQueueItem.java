@@ -12,6 +12,7 @@ import sir.multiply.clash.messagequeue.MessageQueueExpect;
 import java.io.IOException;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.concurrent.CountDownLatch;
 
 public class MessageQueueItem {
 	private static final Logger log = LoggerFactory.getLogger(MessageQueueItem.class);
@@ -21,6 +22,7 @@ public class MessageQueueItem {
 	private MessageQueueCallback callback = null;
 	private Boolean isCallbackCalled = false;
 	private Integer timeout = 5000;
+	final private CountDownLatch latch = new CountDownLatch(1);
 
 	public MessageQueueItem(ArrayList<MessageQueueSend> sendList, ArrayList<MessageQueueExpect> expectList, MessageQueueCallback callback) {
 		this.sendList.addAll(sendList);
@@ -67,9 +69,14 @@ public class MessageQueueItem {
 			}
 		}
 
-		if (!this.isCallbackCalled && this.callback != null) {
+		if (status && !this.isCallbackCalled) {
 			this.isCallbackCalled = true;
-			this.callback.run(this);
+
+			if (this.callback != null) {
+				this.callback.run(this);
+			}
+
+			this.latch.countDown();
 		}
 
 		return status;
@@ -81,5 +88,13 @@ public class MessageQueueItem {
 
 	public Integer getTimeout() {
 		return this.timeout;
+	}
+
+	public void await() {
+		try {
+			this.latch.await();
+		} catch (Exception e) {
+			log.error("Could not await latch", e);
+		}
 	}
 }
