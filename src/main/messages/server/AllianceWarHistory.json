@@ -1,6 +1,6 @@
 {
   "id": 24338,
-  "name": "WarLog",
+  "name": "AllianceWarHistory",
   "fields": [
     {"name": "entries", "type": "WarLogEntry[]"}
   ]

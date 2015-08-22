@@ -1,6 +1,6 @@
 {
   "id":24335,
-  "name": "WarDonations",
+  "name": "AllianceWarData",
   "fields": [
     {"type": "INT"},
     {"type": "INT"},
