@@ -1,6 +1,6 @@
 {
   "id": 24326,
-  "name": "TrapData",
+  "name": "AllianceWarAttackVillageHiddenObjectData",
   "fields": [
     {"type": "INT"},
     {"name": "teslas", "type": "STRING"},

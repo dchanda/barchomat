@@ -1,5 +1,21 @@
 {
   "messages" : [ {
+    "id" : 15001,
+    "name" : "AllianceWarAttackAvatar",
+    "comment" : null,
+    "fields" : [ {
+      "name" : null,
+      "type" : "INT",
+      "comment" : null,
+      "default" : null
+    }, {
+      "name" : null,
+      "type" : "INT",
+      "comment" : null,
+      "default" : null
+    } ],
+    "extensions" : [ ]
+  }, {
     "id" : 14302,
     "name" : "AskForAllianceData",
     "comment" : null,
@@ -1538,12 +1554,12 @@
     "name" : "WarsTeamMemberUnknownComponent",
     "comment" : null,
     "fields" : [ {
-      "name" : null,
+      "name" : "name",
       "type" : "STRING",
       "comment" : null,
       "default" : null
     }, {
-      "name" : null,
+      "name" : "position",
       "type" : "INT",
       "comment" : null,
       "default" : null
@@ -1635,22 +1651,22 @@
     "name" : "WarTeamMembers",
     "comment" : null,
     "fields" : [ {
-      "name" : null,
+      "name" : "clanId",
       "type" : "LONG",
       "comment" : null,
       "default" : null
     }, {
-      "name" : null,
+      "name" : "userId",
       "type" : "LONG",
       "comment" : null,
       "default" : null
     }, {
-      "name" : null,
+      "name" : "homeId",
       "type" : "LONG",
       "comment" : null,
       "default" : null
     }, {
-      "name" : null,
+      "name" : "userName",
       "type" : "STRING",
       "comment" : null,
       "default" : null
@@ -1695,7 +1711,17 @@
       "comment" : null,
       "default" : null
     }, {
-      "name" : null,
+      "name" : "goldWeight",
+      "type" : "INT",
+      "comment" : null,
+      "default" : null
+    }, {
+      "name" : "elixerWeight",
+      "type" : "INT",
+      "comment" : null,
+      "default" : null
+    }, {
+      "name" : "deWeight",
       "type" : "INT",
       "comment" : null,
       "default" : null
@@ -1715,22 +1741,12 @@
       "comment" : null,
       "default" : null
     }, {
-      "name" : null,
+      "name" : "townHall",
       "type" : "INT",
       "comment" : null,
       "default" : null
     }, {
-      "name" : null,
-      "type" : "INT",
-      "comment" : null,
-      "default" : null
-    }, {
-      "name" : null,
-      "type" : "INT",
-      "comment" : null,
-      "default" : null
-    }, {
-      "name" : null,
+      "name" : "position",
       "type" : "INT",
       "comment" : null,
       "default" : null
@@ -1740,7 +1756,7 @@
       "comment" : null,
       "default" : null
     }, {
-      "name" : null,
+      "name" : "warId",
       "type" : "?LONG",
       "comment" : null,
       "default" : null
@@ -1915,7 +1931,7 @@
     "extensions" : [ ]
   }, {
     "id" : 24324,
-    "name" : "AllianceData2",
+    "name" : "AllianceFullEntryUpdate",
     "comment" : null,
     "fields" : [ {
       "name" : "clanDescription",
@@ -2341,6 +2357,109 @@
     }, {
       "name" : "messageId",
       "type" : "INT",
+      "comment" : null,
+      "default" : null
+    } ],
+    "extensions" : [ ]
+  }, {
+    "id" : 25003,
+    "name" : "AllianceWarAttackData",
+    "comment" : null,
+    "fields" : [ {
+      "name" : null,
+      "type" : "UserComponent",
+      "comment" : null,
+      "default" : null
+    }, {
+      "name" : "resources",
+      "type" : "ResourceListComponent",
+      "comment" : null,
+      "default" : null
+    }, {
+      "name" : null,
+      "type" : "INT",
+      "comment" : null,
+      "default" : null
+    }, {
+      "name" : null,
+      "type" : "INT",
+      "comment" : null,
+      "default" : null
+    }, {
+      "name" : "homeId",
+      "type" : "LONG",
+      "comment" : null,
+      "default" : null
+    }, {
+      "name" : "remainingShield",
+      "type" : "INT",
+      "comment" : null,
+      "default" : null
+    }, {
+      "name" : null,
+      "type" : "INT",
+      "comment" : null,
+      "default" : "1200"
+    }, {
+      "name" : null,
+      "type" : "INT",
+      "comment" : null,
+      "default" : "60"
+    }, {
+      "name" : "enemyVillage",
+      "type" : "?ZIP_STRING",
+      "comment" : null,
+      "default" : null
+    }, {
+      "name" : "enemyId",
+      "type" : "LONG",
+      "comment" : null,
+      "default" : null
+    } ],
+    "extensions" : [ ]
+  }, {
+    "id" : 25006,
+    "name" : "AllianceWarAttackEvent",
+    "comment" : null,
+    "fields" : [ {
+      "name" : null,
+      "type" : "WarTeamMembers",
+      "comment" : null,
+      "default" : null
+    }, {
+      "name" : null,
+      "type" : "INT",
+      "comment" : null,
+      "default" : null
+    } ],
+    "extensions" : [ ]
+  }, {
+    "id" : 24326,
+    "name" : "AllianceWarAttackVillageHiddenObjectData",
+    "comment" : null,
+    "fields" : [ {
+      "name" : null,
+      "type" : "INT",
+      "comment" : null,
+      "default" : null
+    }, {
+      "name" : "teslas",
+      "type" : "STRING",
+      "comment" : null,
+      "default" : null
+    }, {
+      "name" : null,
+      "type" : "INT",
+      "comment" : null,
+      "default" : null
+    }, {
+      "name" : "traps",
+      "type" : "STRING",
+      "comment" : null,
+      "default" : null
+    }, {
+      "name" : "garrison",
+      "type" : "UnitComponent[]",
       "comment" : null,
       "default" : null
     } ],
@@ -2936,37 +3055,6 @@
     "name" : "ServerKeepAlive",
     "comment" : null,
     "fields" : [ ],
-    "extensions" : [ ]
-  }, {
-    "id" : 24326,
-    "name" : "TrapData",
-    "comment" : null,
-    "fields" : [ {
-      "name" : null,
-      "type" : "INT",
-      "comment" : null,
-      "default" : null
-    }, {
-      "name" : "teslas",
-      "type" : "STRING",
-      "comment" : null,
-      "default" : null
-    }, {
-      "name" : null,
-      "type" : "INT",
-      "comment" : null,
-      "default" : null
-    }, {
-      "name" : "traps",
-      "type" : "STRING",
-      "comment" : null,
-      "default" : null
-    }, {
-      "name" : "garrison",
-      "type" : "UnitComponent[]",
-      "comment" : null,
-      "default" : null
-    } ],
     "extensions" : [ ]
   }, {
     "id" : 24113,

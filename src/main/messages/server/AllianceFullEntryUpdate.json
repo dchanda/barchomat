@@ -1,6 +1,6 @@
 {
   "id": 24324,
-  "name": "AllianceData2",
+  "name": "AllianceFullEntryUpdate",
   "fields": [
     {"name": "clanDescription", "type": "STRING"},
     {"type": "INT"},
