@@ -1,6 +1,7 @@
 package sir.barchable.clash.protocol;
 
 import sir.barchable.util.Cipher;
+import sir.barchable.util.NoopCipher;
 
 import java.io.Closeable;
 import java.io.IOException;
@@ -23,7 +24,7 @@ public class PduOutputStream implements Closeable {
      * @param out the stream to write to
      */
     public PduOutputStream(OutputStream out) {
-        this(out, new Clash7Crypt());
+        this(out, NoopCipher.NOOP_CIPHER);
     }
 
     public PduOutputStream(OutputStream out, Cipher cipher) {
@@ -32,10 +33,11 @@ public class PduOutputStream implements Closeable {
     }
 
     public void write(Pdu pdu) throws IOException {
+        byte[] encrypted = cipher.encrypt(pdu.getPayload());
         writeShort(pdu.getId());
-        writeUInt3(pdu.getPayload().length);
+        writeUInt3(encrypted.length);
         writeShort(pdu.getVersion());
-        out.write(cipher.encrypt(pdu.getPayload()));
+        out.write( encrypted );
         out.flush();
     }
 
@@ -52,6 +54,10 @@ public class PduOutputStream implements Closeable {
 
     public void setKey(byte[] nonce) {
         cipher.setKey(nonce);
+    }
+
+    public void setCipher(Cipher cipher) {
+        this.cipher = cipher;
     }
 
     @Override

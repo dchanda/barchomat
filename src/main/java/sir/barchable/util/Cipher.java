@@ -17,6 +17,13 @@ public interface Cipher {
     byte[] encrypt(byte[] b);
 
     /**
+     * Decrypt a byte[].
+     * @param b the bytes to decrypt
+     * @return the decrypted bytes
+     */
+    byte[] decrypt(byte[] b);
+
+    /**
      * Set the key for encryption.
      */
     void setKey(byte[] key);

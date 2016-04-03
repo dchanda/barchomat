@@ -3,6 +3,8 @@ package sir.barchable.clash;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import sir.barchable.clash.protocol.Connection;
+import sir.barchable.clash.protocol.crypt.ClientCrypto;
+import sir.barchable.clash.protocol.crypt.ServerCrypto;
 import sir.barchable.clash.proxy.MessageSaver;
 import sir.barchable.clash.proxy.MessageTapFilter;
 import sir.barchable.clash.proxy.PduFilterChain;
@@ -116,6 +118,7 @@ public class ClashProxy {
         log.info("Client connected from {}", socket.getInetAddress());
         try {
             InetAddress serverAddress = dns.getAddress("gamea.clashofclans.com");
+//            InetAddress serverAddress = InetAddress.getByName("192.168.1.148");
             try (
                 Connection clientConnection = new Connection(socket);
                 Connection serverConnection = new Connection(new Socket(serverAddress, CLASH_PORT))

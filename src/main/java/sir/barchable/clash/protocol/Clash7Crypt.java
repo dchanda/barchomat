@@ -30,6 +30,11 @@ public class Clash7Crypt implements Cipher {
     }
 
     @Override
+    public byte[] decrypt(byte[] b) {
+        return new byte[0];
+    }
+
+    @Override
     public void setKey(byte[] nonce) {
         byte[] key = concat(BASE_KEY, nonce);
         rc4 = new RC4(key);

@@ -1,5 +1,7 @@
 package sir.barchable.clash.protocol;
 
+import sir.barchable.util.Cipher;
+
 import java.io.Closeable;
 import java.io.IOException;
 import java.io.InputStream;
@@ -53,6 +55,11 @@ public class Connection implements Closeable {
             }
             out.close();
         }
+    }
+
+    public void setCipher(Cipher cipher) {
+        in.setCipher(cipher);
+        out.setCipher(cipher);
     }
 
     public void setKey(byte[] key) {

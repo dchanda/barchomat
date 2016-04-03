@@ -9,6 +9,7 @@ package sir.barchable.clash.protocol;
 public class Pdu {
     public enum Type {
         Unknown(0),
+        ClientHandshake(10100),
         Login(10101),
         LoginUsingSession(10102),
         CreateAccount(10103),
@@ -80,6 +81,7 @@ public class Pdu {
         LogicDeviceLinkEnterCode(16002),
         LogicDeviceLinkConfirmYes(16003),
         Encryption(20000),
+        ServerHandshake(20100),
         CreateAccountResult(20101),
         LoginFailed(20103),
         LoginOk(20104),

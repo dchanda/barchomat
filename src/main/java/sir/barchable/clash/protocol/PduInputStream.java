@@ -1,6 +1,7 @@
 package sir.barchable.clash.protocol;
 
 import sir.barchable.util.Cipher;
+import sir.barchable.util.NoopCipher;
 
 import java.io.*;
 
@@ -20,7 +21,7 @@ public class PduInputStream implements Closeable {
      * @param in the stream to read from
      */
     public PduInputStream(InputStream in) {
-        this(in, new Clash7Crypt());
+        this(in, NoopCipher.NOOP_CIPHER);
     }
 
     public PduInputStream(InputStream in, Cipher cipher) {
@@ -33,7 +34,7 @@ public class PduInputStream implements Closeable {
         pdu.id = readUInt2();
         int length = readUInt3();
         pdu.version = readUInt2();
-        pdu.payload = cipher.encrypt(readBytes(length));
+        pdu.payload = cipher.decrypt(readBytes(length));
         return pdu;
     }
 
@@ -74,6 +75,10 @@ public class PduInputStream implements Closeable {
 
     public void setKey(byte[] nonce) {
         cipher.setKey(nonce);
+    }
+
+    public void setCipher(Cipher cipher) {
+        this.cipher = cipher;
     }
 
     @Override

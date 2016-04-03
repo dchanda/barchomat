@@ -20,6 +20,11 @@ public class NoopCipher implements Cipher {
     }
 
     @Override
+    public byte[] decrypt(byte[] b) {
+        return b.clone();
+    }
+
+    @Override
     public void setKey(byte[] nonce) {
         // nothing to do
     }

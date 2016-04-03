@@ -1,5 +1,6 @@
 package sir.barchable.clash.protocol;
 
+import org.abstractj.kalium.encoders.Hex;
 import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -7,6 +8,10 @@ import sir.barchable.util.BitInputStream;
 import sir.barchable.util.Bits;
 
 import java.io.*;
+import java.nio.ByteBuffer;
+import java.nio.charset.CharacterCodingException;
+import java.nio.charset.Charset;
+import java.nio.charset.CharsetDecoder;
 import java.util.zip.InflaterInputStream;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
@@ -24,6 +29,7 @@ public class MessageInputStream extends InputStream {
     public static final int MAX_ARRAY_LENGTH = 1024 * 1024;
 
     private BitInputStream in;
+    private static final CharsetDecoder UTF8_DECODER = Charset.forName("UTF-8").newDecoder();
 
     public MessageInputStream(InputStream in) {
         this.in = BitInputStream.toBitInputStream(in);
@@ -91,7 +97,21 @@ public class MessageInputStream extends InputStream {
             // null sentinel
             return null;
         }
-        return new String(readArray(new byte[length]), UTF_8);
+        byte[] bytes = readArray(new byte[length]);
+
+        if ( isValidUTF_8(bytes) )
+            return new String(bytes, UTF_8);
+        else
+            return new Hex().encode(bytes);
+    }
+
+    private boolean isValidUTF_8(byte[] bytes) {
+        try {
+            UTF8_DECODER.decode(ByteBuffer.wrap(bytes));
+            return true;
+        } catch(CharacterCodingException e){
+            return false;
+        }
     }
 
     public String readZipString() throws IOException {

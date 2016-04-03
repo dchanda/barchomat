@@ -81,6 +81,7 @@ public class MessageFactory {
                 String name = structName.get();
                 TypeFactory.Type type = typeFactory.resolveType(name);
                 Map<String, Object> fields = (Map<String, Object>) reader.readValue(type, MessageInputStream.toMessageInputStream(in));
+                System.out.println( name + " : " + fields );
                 return new Message(typeFactory, name, fields);
             } catch (TypeException | IOException e) {
                 throw new PduException(e);

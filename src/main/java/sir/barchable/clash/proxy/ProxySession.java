@@ -6,6 +6,8 @@ import sir.barchable.clash.model.SessionState;
 import sir.barchable.clash.protocol.Connection;
 import sir.barchable.clash.protocol.MessageFactory;
 import sir.barchable.clash.protocol.PduException;
+import sir.barchable.clash.protocol.crypt.ClientCrypto;
+import sir.barchable.clash.protocol.crypt.ServerCrypto;
 
 import java.io.EOFException;
 import java.io.IOException;
@@ -39,7 +41,12 @@ public class ProxySession {
         this.messageFactory = messageFactory;
         this.clientConnection = clientConnection;
         this.serverConnection = serverConnection;
-        this.filterChain = new PduFilterChain(filters);
+        if ( filters != null ) {
+            if ( filters.length==1 && filters[0] instanceof PduFilterChain )
+                this.filterChain = (PduFilterChain) filters[0];
+            else
+                this.filterChain = new PduFilterChain(filters);
+        }
     }
 
     /**
@@ -86,20 +93,26 @@ public class ProxySession {
         // A pipe for messages from server -> client
         Pipe serverPipe = new Pipe(serverConnection.getName(), serverConnection.getIn(), clientConnection.getOut());
 
-        KeyTap keyListener = new KeyTap();
-        PduFilter loginFilter = filterChain.addAfter(new MessageTapFilter(messageFactory, keyListener));
+//        KeyTap keyListener = new KeyTap();
+        SessionKeyTap sessionKeyListener = new SessionKeyTap();
+        PduFilter loginFilter = filterChain.addAfter(new MessageTapFilter(messageFactory, sessionKeyListener));
 
-        // Key exchange.
+        //Get the session Key.
         do {
             clientPipe.filterThrough(loginFilter);
             serverPipe.filterThrough(loginFilter);
-        } while (keyListener.getKey() == null);
+        } while (sessionKeyListener.getSessionKey() == null);
 
-        byte[] key = keyListener.getKey();
+        //Start cryptography for streams
+        ClientCrypto clientCrypto = new ClientCrypto();
+        ServerCrypto serverCrypto = new ServerCrypto(clientCrypto);
+        clientCrypto.setSessionKey( sessionKeyListener.getSessionKey() );
+        clientConnection.setCipher( serverCrypto );
+        serverConnection.setCipher( clientCrypto );
 
         // Re-key the streams
-        clientConnection.setKey(key);
-        serverConnection.setKey(key);
+//        clientConnection.setKey(key);
+//        serverConnection.setKey(key);
 
         // Proxy messages from client -> server
         runPipe(clientPipe);
