@@ -60,7 +60,7 @@ public class Decode {
         MessageTapFilter tapFilter = new MessageTapFilter(
             services.getMessageFactory(),
             new VillageAnalyzer(services.getLogic()),
-            new MessageLogger(new OutputStreamWriter(System.out)).tapFor(Pdu.Type.WarHomeData, "warVillage")
+            new MessageLogger(new OutputStreamWriter(System.out)).tapFor(Pdu.Type.AllianceWarVisitData, "warVillage")
         );
         try (
             // Client connection

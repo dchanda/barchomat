@@ -6,3 +6,12 @@ target
 .idea
 *.iml
 *.apk
+/target/
+.project
+.classpath
+
+/villages/
+/.settings/
+client.txt
+server.txt
+Account.json

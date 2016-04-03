@@ -55,7 +55,7 @@ public class Load {
                 fields.put("homeVillage", village);
                 break;
 
-            case WarHomeData:
+            case AllianceWarVisitData:
                 WarVillage warVillage = Json.valueOf((String) fields.get("homeVillage"), WarVillage.class);
                 fields.put("homeVillage", warVillage);
                 break;

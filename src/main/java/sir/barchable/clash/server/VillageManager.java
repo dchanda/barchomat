@@ -114,7 +114,7 @@ public class VillageManager {
                     village = visitedHomeToEnemyHome(village, war);
                     break;
 
-                case WarHomeData:
+                case AllianceWarVisitData:
                     village = warHomeToEnemyHome(village);
                     break;
 

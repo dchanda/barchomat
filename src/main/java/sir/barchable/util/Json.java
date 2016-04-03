@@ -7,6 +7,7 @@ import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.databind.SerializationFeature;
 
 import java.io.*;
+import java.util.Map;
 
 /**
  * Json serialization util.
@@ -63,5 +64,9 @@ public final class Json {
 
     public static <T> T read(File f, Class<T> type) throws IOException {
         return mapper.readValue(f, type);
+    }
+    
+    public static <T> T convertValue(Object m, Class<T> type) throws IOException {
+        return mapper.convertValue(m, type);
     }
 }
