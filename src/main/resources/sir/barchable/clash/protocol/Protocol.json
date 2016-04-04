@@ -86,12 +86,74 @@
     } ],
     "extensions" : [ ]
   }, {
+    "id" : 10212,
+    "name" : "ChangeAvatarName",
+    "comment" : null,
+    "fields" : [ {
+      "name" : null,
+      "type" : "STRING",
+      "comment" : null,
+      "default" : null
+    }, {
+      "name" : null,
+      "type" : "BYTE",
+      "comment" : null,
+      "default" : null
+    } ],
+    "extensions" : [ ]
+  }, {
     "id" : 14315,
     "name" : "ChatToAllianceStream",
     "comment" : null,
     "fields" : [ {
       "name" : "text",
       "type" : "STRING",
+      "comment" : null,
+      "default" : null
+    } ],
+    "extensions" : [ ]
+  }, {
+    "id" : 10100,
+    "name" : "ClientHandshake",
+    "comment" : null,
+    "fields" : [ {
+      "name" : null,
+      "type" : "INT",
+      "comment" : null,
+      "default" : null
+    }, {
+      "name" : null,
+      "type" : "INT",
+      "comment" : null,
+      "default" : null
+    }, {
+      "name" : "majorVersion",
+      "type" : "INT",
+      "comment" : null,
+      "default" : null
+    }, {
+      "name" : null,
+      "type" : "INT",
+      "comment" : null,
+      "default" : null
+    }, {
+      "name" : "minorVersion",
+      "type" : "INT",
+      "comment" : null,
+      "default" : null
+    }, {
+      "name" : "masterHash",
+      "type" : "STRING",
+      "comment" : null,
+      "default" : null
+    }, {
+      "name" : null,
+      "type" : "INT",
+      "comment" : null,
+      "default" : null
+    }, {
+      "name" : null,
+      "type" : "INT",
       "comment" : null,
       "default" : null
     } ],
@@ -535,6 +597,32 @@
       } ]
     } ]
   }, {
+    "id" : 14310,
+    "name" : "DonateAllianceUnit",
+    "comment" : null,
+    "fields" : [ {
+      "name" : null,
+      "type" : "INT",
+      "comment" : null,
+      "default" : null
+    }, {
+      "name" : null,
+      "type" : "INT",
+      "comment" : null,
+      "default" : null
+    }, {
+      "name" : null,
+      "type" : "INT",
+      "comment" : null,
+      "default" : null
+    }, {
+      "name" : null,
+      "type" : "INT",
+      "comment" : null,
+      "default" : null
+    } ],
+    "extensions" : [ ]
+  }, {
     "id" : 14102,
     "name" : "EndClientTurn",
     "comment" : null,
@@ -551,6 +639,27 @@
     }, {
       "name" : "commands",
       "type" : "CommandComponent[]",
+      "comment" : null,
+      "default" : null
+    } ],
+    "extensions" : [ ]
+  }, {
+    "id" : 15000,
+    "name" : "FetchWarBase",
+    "comment" : null,
+    "fields" : [ {
+      "name" : "homeId",
+      "type" : "LONG",
+      "comment" : null,
+      "default" : null
+    }, {
+      "name" : null,
+      "type" : "INT",
+      "comment" : null,
+      "default" : null
+    }, {
+      "name" : "warId",
+      "type" : "?LONG",
       "comment" : null,
       "default" : null
     } ],
@@ -584,7 +693,7 @@
       "name" : null,
       "type" : "INT",
       "comment" : null,
-      "default" : "0"
+      "default" : null
     }, {
       "name" : "minorVersion",
       "type" : "INT",
@@ -644,7 +753,7 @@
       "name" : null,
       "type" : "STRING",
       "comment" : null,
-      "default" : ""
+      "default" : null
     }, {
       "name" : "androidDeviceId",
       "type" : "STRING",
@@ -666,7 +775,7 @@
       "comment" : null,
       "default" : null
     }, {
-      "name" : "clientSeed",
+      "name" : null,
       "type" : "INT",
       "comment" : null,
       "default" : null
@@ -679,12 +788,17 @@
       "name" : null,
       "type" : "STRING",
       "comment" : null,
-      "default" : ""
+      "default" : null
     }, {
       "name" : null,
       "type" : "STRING",
       "comment" : null,
-      "default" : ""
+      "default" : null
+    }, {
+      "name" : "clientVersion",
+      "type" : "STRING",
+      "comment" : null,
+      "default" : null
     } ],
     "extensions" : [ ]
   }, {
@@ -755,7 +869,12 @@
     "comment" : null,
     "fields" : [ {
       "name" : "token",
-      "type" : "BYTE[]",
+      "type" : "STRING",
+      "comment" : null,
+      "default" : null
+    }, {
+      "name" : null,
+      "type" : "INT",
       "comment" : null,
       "default" : null
     } ],
@@ -789,11 +908,335 @@
     "extensions" : [ ]
   }, {
     "id" : null,
+    "name" : "AllianceStreamEntry",
+    "comment" : null,
+    "fields" : [ {
+      "name" : "id",
+      "type" : "INT",
+      "comment" : null,
+      "default" : null
+    }, {
+      "name" : null,
+      "type" : "INT",
+      "comment" : null,
+      "default" : null
+    }, {
+      "name" : "messageId",
+      "type" : "INT",
+      "comment" : null,
+      "default" : null
+    }, {
+      "name" : null,
+      "type" : "BYTE",
+      "comment" : null,
+      "default" : null
+    }, {
+      "name" : "userId",
+      "type" : "LONG",
+      "comment" : null,
+      "default" : null
+    }, {
+      "name" : "homeId",
+      "type" : "LONG",
+      "comment" : null,
+      "default" : null
+    }, {
+      "name" : "userName",
+      "type" : "STRING",
+      "comment" : null,
+      "default" : null
+    }, {
+      "name" : "level",
+      "type" : "INT",
+      "comment" : null,
+      "default" : null
+    }, {
+      "name" : null,
+      "type" : "INT",
+      "comment" : null,
+      "default" : null
+    }, {
+      "name" : null,
+      "type" : "INT",
+      "comment" : null,
+      "default" : null
+    }, {
+      "name" : null,
+      "type" : "INT",
+      "comment" : null,
+      "default" : null
+    } ],
+    "extensions" : [ {
+      "id" : 1,
+      "comment" : "Troop request",
+      "fields" : [ {
+        "name" : null,
+        "type" : "INT",
+        "comment" : null,
+        "default" : null
+      }, {
+        "name" : null,
+        "type" : "INT",
+        "comment" : null,
+        "default" : null
+      }, {
+        "name" : null,
+        "type" : "INT",
+        "comment" : null,
+        "default" : null
+      }, {
+        "name" : null,
+        "type" : "INT",
+        "comment" : null,
+        "default" : null
+      }, {
+        "name" : null,
+        "type" : "INT",
+        "comment" : null,
+        "default" : null
+      }, {
+        "name" : "donations",
+        "type" : "AllianceDonation[]",
+        "comment" : null,
+        "default" : null
+      }, {
+        "name" : "text",
+        "type" : "?STRING",
+        "comment" : null,
+        "default" : null
+      }, {
+        "name" : null,
+        "type" : "STRING",
+        "comment" : null,
+        "default" : null
+      }, {
+        "name" : null,
+        "type" : "INT",
+        "comment" : null,
+        "default" : null
+      }, {
+        "name" : null,
+        "type" : "INT",
+        "comment" : null,
+        "default" : null
+      }, {
+        "name" : null,
+        "type" : "INT",
+        "comment" : null,
+        "default" : null
+      }, {
+        "name" : null,
+        "type" : "INT",
+        "comment" : null,
+        "default" : null
+      } ]
+    }, {
+      "id" : 2,
+      "comment" : "Send chat line",
+      "fields" : [ {
+        "name" : "text",
+        "type" : "STRING",
+        "comment" : null,
+        "default" : null
+      } ]
+    }, {
+      "id" : 3,
+      "comment" : "Accept/reject a join request",
+      "fields" : [ {
+        "name" : "text",
+        "type" : "STRING",
+        "comment" : null,
+        "default" : null
+      }, {
+        "name" : "actionedByUserName",
+        "type" : "STRING",
+        "comment" : null,
+        "default" : null
+      }, {
+        "name" : "action",
+        "type" : "INT",
+        "comment" : null,
+        "default" : null
+      } ]
+    }, {
+      "id" : 4,
+      "comment" : "Join or leave",
+      "fields" : [ {
+        "name" : "action",
+        "type" : "INT",
+        "comment" : null,
+        "default" : null
+      }, {
+        "name" : "actionedByUserId",
+        "type" : "LONG",
+        "comment" : null,
+        "default" : null
+      }, {
+        "name" : "actionedByUserName",
+        "type" : "STRING",
+        "comment" : null,
+        "default" : null
+      } ]
+    }, {
+      "id" : 5,
+      "comment" : "Share replay",
+      "fields" : [ {
+        "name" : null,
+        "type" : "INT",
+        "comment" : null,
+        "default" : null
+      }, {
+        "name" : null,
+        "type" : "INT",
+        "comment" : null,
+        "default" : null
+      }, {
+        "name" : null,
+        "type" : "INT",
+        "comment" : null,
+        "default" : null
+      }, {
+        "name" : null,
+        "type" : "BYTE",
+        "comment" : null,
+        "default" : null
+      }, {
+        "name" : "text",
+        "type" : "STRING",
+        "comment" : null,
+        "default" : null
+      }, {
+        "name" : "enemyName",
+        "type" : "STRING",
+        "comment" : null,
+        "default" : null
+      }, {
+        "name" : "replay",
+        "type" : "STRING",
+        "comment" : "JSON description of battle",
+        "default" : null
+      }, {
+        "name" : null,
+        "type" : "INT",
+        "comment" : null,
+        "default" : null
+      }, {
+        "name" : null,
+        "type" : "INT",
+        "comment" : null,
+        "default" : null
+      }, {
+        "name" : null,
+        "type" : "INT",
+        "comment" : null,
+        "default" : null
+      } ]
+    } ]
+  }, {
+    "id" : null,
+    "name" : "AvatarStreamEntry",
+    "comment" : null,
+    "fields" : [ {
+      "name" : "id",
+      "type" : "INT",
+      "comment" : null,
+      "default" : null
+    } ],
+    "extensions" : [ {
+      "id" : 2,
+      "comment" : null,
+      "fields" : [ {
+        "name" : null,
+        "type" : "AvatarStreamEntryExtensionDefault",
+        "comment" : null,
+        "default" : null
+      } ]
+    }, {
+      "id" : 6,
+      "comment" : null,
+      "fields" : [ {
+        "name" : null,
+        "type" : "LONG",
+        "comment" : null,
+        "default" : null
+      }, {
+        "name" : "userId",
+        "type" : "LONG",
+        "comment" : null,
+        "default" : null
+      }, {
+        "name" : "userName",
+        "type" : "STRING",
+        "comment" : null,
+        "default" : null
+      }, {
+        "name" : null,
+        "type" : "INT",
+        "comment" : null,
+        "default" : null
+      }, {
+        "name" : null,
+        "type" : "INT",
+        "comment" : null,
+        "default" : null
+      }, {
+        "name" : null,
+        "type" : "INT",
+        "comment" : null,
+        "default" : null
+      }, {
+        "name" : null,
+        "type" : "BYTE",
+        "comment" : null,
+        "default" : null
+      }, {
+        "name" : "text",
+        "type" : "STRING",
+        "comment" : null,
+        "default" : null
+      }, {
+        "name" : null,
+        "type" : "?LONG",
+        "comment" : null,
+        "default" : null
+      }, {
+        "name" : null,
+        "type" : "LONG",
+        "comment" : null,
+        "default" : null
+      }, {
+        "name" : "clanName",
+        "type" : "STRING",
+        "comment" : null,
+        "default" : null
+      }, {
+        "name" : null,
+        "type" : "INT",
+        "comment" : null,
+        "default" : null
+      } ]
+    }, {
+      "id" : 7,
+      "comment" : null,
+      "fields" : [ {
+        "name" : null,
+        "type" : "AvatarStreamEntryExtensionDefault",
+        "comment" : null,
+        "default" : null
+      } ]
+    } ]
+  }, {
+    "id" : null,
     "name" : "AvatarStreamEntryExtensionDefault",
     "comment" : null,
     "fields" : [ {
       "name" : null,
       "type" : "LONG",
+      "comment" : null,
+      "default" : null
+    }, {
+      "name" : null,
+      "type" : "BYTE",
       "comment" : null,
       "default" : null
     }, {
@@ -923,7 +1366,7 @@
     "extensions" : [ ]
   }, {
     "id" : null,
-    "name" : "clanMembers",
+    "name" : "ClanMembers",
     "comment" : null,
     "fields" : [ {
       "name" : "id",
@@ -981,7 +1424,7 @@
       "comment" : null,
       "default" : null
     }, {
-      "name" : null,
+      "name" : "warCoolDown",
       "type" : "INT",
       "comment" : null,
       "default" : null
@@ -1002,6 +1445,511 @@
       "default" : null
     } ],
     "extensions" : [ ]
+  }, {
+    "id" : null,
+    "name" : "CommandComponent",
+    "comment" : null,
+    "fields" : [ {
+      "name" : "id",
+      "type" : "INT",
+      "comment" : null,
+      "default" : null
+    } ],
+    "extensions" : [ {
+      "id" : 4,
+      "comment" : "Donate unit in response to troop request",
+      "fields" : [ {
+        "name" : null,
+        "type" : "INT",
+        "comment" : null,
+        "default" : null
+      }, {
+        "name" : "messageId",
+        "type" : "INT",
+        "comment" : null,
+        "default" : null
+      }, {
+        "name" : null,
+        "type" : "INT",
+        "comment" : null,
+        "default" : null
+      }, {
+        "name" : "typeId",
+        "type" : "INT",
+        "comment" : null,
+        "default" : null
+      }, {
+        "name" : null,
+        "type" : "INT",
+        "comment" : null,
+        "default" : null
+      }, {
+        "name" : "tick",
+        "type" : "INT",
+        "comment" : null,
+        "default" : null
+      } ]
+    }, {
+      "id" : 5,
+      "comment" : "Alliance unit received",
+      "fields" : [ {
+        "name" : null,
+        "type" : "STRING",
+        "comment" : null,
+        "default" : null
+      }, {
+        "name" : null,
+        "type" : "INT",
+        "comment" : null,
+        "default" : null
+      }, {
+        "name" : "typeId",
+        "type" : "INT",
+        "comment" : null,
+        "default" : null
+      }, {
+        "name" : null,
+        "type" : "INT",
+        "comment" : null,
+        "default" : null
+      }, {
+        "name" : null,
+        "type" : "INT",
+        "comment" : null,
+        "default" : null
+      }, {
+        "name" : "tick",
+        "type" : "INT",
+        "comment" : null,
+        "default" : null
+      } ]
+    }, {
+      "id" : 10,
+      "comment" : "Donate unit to clan war castle",
+      "fields" : [ {
+        "name" : null,
+        "type" : "INT",
+        "comment" : null,
+        "default" : null
+      }, {
+        "name" : "homeId",
+        "type" : "INT",
+        "comment" : null,
+        "default" : null
+      }, {
+        "name" : "typeId",
+        "type" : "INT",
+        "comment" : null,
+        "default" : null
+      }, {
+        "name" : "index",
+        "type" : "INT",
+        "comment" : null,
+        "default" : null
+      }, {
+        "name" : "tick",
+        "type" : "INT",
+        "comment" : null,
+        "default" : null
+      } ]
+    }, {
+      "id" : 501,
+      "comment" : "Move building",
+      "fields" : [ {
+        "name" : "x",
+        "type" : "INT",
+        "comment" : null,
+        "default" : null
+      }, {
+        "name" : "y",
+        "type" : "INT",
+        "comment" : null,
+        "default" : null
+      }, {
+        "name" : "buildingId",
+        "type" : "INT",
+        "comment" : null,
+        "default" : null
+      }, {
+        "name" : "tick",
+        "type" : "INT",
+        "comment" : null,
+        "default" : null
+      } ]
+    }, {
+      "id" : 506,
+      "comment" : "Collect resources",
+      "fields" : [ {
+        "name" : "buildingId",
+        "type" : "INT",
+        "comment" : null,
+        "default" : null
+      }, {
+        "name" : "tick",
+        "type" : "INT",
+        "comment" : null,
+        "default" : null
+      } ]
+    }, {
+      "id" : 508,
+      "comment" : "Train troops",
+      "fields" : [ {
+        "name" : "buildingId",
+        "type" : "INT",
+        "comment" : null,
+        "default" : null
+      }, {
+        "name" : null,
+        "type" : "INT",
+        "comment" : null,
+        "default" : null
+      }, {
+        "name" : "typeId",
+        "type" : "INT",
+        "comment" : null,
+        "default" : null
+      }, {
+        "name" : "count",
+        "type" : "INT",
+        "comment" : null,
+        "default" : null
+      }, {
+        "name" : "tick",
+        "type" : "INT",
+        "comment" : null,
+        "default" : null
+      } ]
+    }, {
+      "id" : 509,
+      "comment" : "Cancel troop production",
+      "fields" : [ {
+        "name" : "buildingId",
+        "type" : "INT",
+        "comment" : null,
+        "default" : null
+      }, {
+        "name" : null,
+        "type" : "INT",
+        "comment" : null,
+        "default" : null
+      }, {
+        "name" : "typeId",
+        "type" : "INT",
+        "comment" : null,
+        "default" : null
+      }, {
+        "name" : "count",
+        "type" : "INT",
+        "comment" : null,
+        "default" : null
+      }, {
+        "name" : null,
+        "type" : "INT",
+        "comment" : null,
+        "default" : null
+      }, {
+        "name" : "tick",
+        "type" : "INT",
+        "comment" : null,
+        "default" : null
+      } ]
+    }, {
+      "id" : 511,
+      "comment" : "Request troops",
+      "fields" : [ {
+        "name" : "tick",
+        "type" : "INT",
+        "comment" : null,
+        "default" : null
+      }, {
+        "name" : "message",
+        "type" : "?STRING",
+        "comment" : null,
+        "default" : null
+      } ]
+    }, {
+      "id" : 512,
+      "comment" : "Buy decoration",
+      "fields" : [ {
+        "name" : "x",
+        "type" : "INT",
+        "comment" : null,
+        "default" : null
+      }, {
+        "name" : "y",
+        "type" : "INT",
+        "comment" : null,
+        "default" : null
+      }, {
+        "name" : "buildingId",
+        "type" : "INT",
+        "comment" : null,
+        "default" : null
+      }, {
+        "name" : "tick",
+        "type" : "INT",
+        "comment" : null,
+        "default" : null
+      } ]
+    }, {
+      "id" : 532,
+      "comment" : "New shop item seen",
+      "fields" : [ {
+        "name" : null,
+        "type" : "INT",
+        "comment" : null,
+        "default" : null
+      }, {
+        "name" : null,
+        "type" : "INT",
+        "comment" : null,
+        "default" : null
+      }, {
+        "name" : null,
+        "type" : "INT",
+        "comment" : null,
+        "default" : null
+      }, {
+        "name" : "tick",
+        "type" : "INT",
+        "comment" : null,
+        "default" : null
+      } ]
+    }, {
+      "id" : 540,
+      "comment" : "Troop request message",
+      "fields" : [ {
+        "name" : "message",
+        "type" : "STRING",
+        "comment" : null,
+        "default" : null
+      }, {
+        "name" : "tick",
+        "type" : "INT",
+        "comment" : null,
+        "default" : null
+      } ]
+    }, {
+      "id" : 546,
+      "comment" : "Edit layout",
+      "fields" : [ {
+        "name" : "x",
+        "type" : "INT",
+        "comment" : null,
+        "default" : null
+      }, {
+        "name" : "y",
+        "type" : "INT",
+        "comment" : null,
+        "default" : null
+      }, {
+        "name" : "buildingId",
+        "type" : "INT",
+        "comment" : null,
+        "default" : null
+      }, {
+        "name" : "layout",
+        "type" : "INT",
+        "comment" : null,
+        "default" : null
+      }, {
+        "name" : "tick",
+        "type" : "INT",
+        "comment" : null,
+        "default" : null
+      } ]
+    }, {
+      "id" : 548,
+      "comment" : "? edit layout command",
+      "fields" : [ {
+        "name" : "layout",
+        "type" : "INT",
+        "comment" : null,
+        "default" : null
+      }, {
+        "name" : null,
+        "type" : "INT",
+        "comment" : "0 for home villages, 1 for war",
+        "default" : null
+      }, {
+        "name" : "tick",
+        "type" : "INT",
+        "comment" : null,
+        "default" : null
+      } ]
+    }, {
+      "id" : 552,
+      "comment" : "Save Layout",
+      "fields" : [ {
+        "name" : "layout",
+        "type" : "INT",
+        "comment" : null,
+        "default" : null
+      }, {
+        "name" : null,
+        "type" : "INT",
+        "comment" : null,
+        "default" : null
+      }, {
+        "name" : "save",
+        "type" : "BOOLEAN",
+        "comment" : "true to save, false to cancel",
+        "default" : null
+      }, {
+        "name" : "tick",
+        "type" : "INT",
+        "comment" : null,
+        "default" : null
+      } ]
+    }, {
+      "id" : 554,
+      "comment" : "? edit layout command",
+      "fields" : [ {
+        "name" : "buildingId",
+        "type" : "INT",
+        "comment" : null,
+        "default" : null
+      }, {
+        "name" : "layout",
+        "type" : "INT",
+        "comment" : null,
+        "default" : null
+      }, {
+        "name" : null,
+        "type" : "BYTE",
+        "comment" : null,
+        "default" : null
+      }, {
+        "name" : null,
+        "type" : "INT",
+        "comment" : null,
+        "default" : null
+      }, {
+        "name" : null,
+        "type" : "BYTE",
+        "comment" : null,
+        "default" : null
+      }, {
+        "name" : "tick",
+        "type" : "INT",
+        "comment" : null,
+        "default" : null
+      } ]
+    }, {
+      "id" : 567,
+      "comment" : "Set layout as active",
+      "fields" : [ {
+        "name" : "layout",
+        "type" : "INT",
+        "comment" : null,
+        "default" : null
+      }, {
+        "name" : null,
+        "type" : "INT",
+        "comment" : "0 for home villages, 1 for war",
+        "default" : null
+      }, {
+        "name" : "tick",
+        "type" : "INT",
+        "comment" : null,
+        "default" : null
+      } ]
+    }, {
+      "id" : 568,
+      "comment" : "Copy layout",
+      "fields" : [ {
+        "name" : "tick",
+        "type" : "INT",
+        "comment" : null,
+        "default" : null
+      }, {
+        "name" : "fromLayout",
+        "type" : "INT",
+        "comment" : null,
+        "default" : null
+      }, {
+        "name" : "toLayout",
+        "type" : "INT",
+        "comment" : null,
+        "default" : null
+      } ]
+    }, {
+      "id" : 600,
+      "comment" : "Place attacker",
+      "fields" : [ {
+        "name" : "x",
+        "type" : "INT",
+        "comment" : null,
+        "default" : null
+      }, {
+        "name" : "y",
+        "type" : "INT",
+        "comment" : null,
+        "default" : null
+      }, {
+        "name" : "typeId",
+        "type" : "INT",
+        "comment" : null,
+        "default" : null
+      }, {
+        "name" : "tick",
+        "type" : "INT",
+        "comment" : null,
+        "default" : null
+      } ]
+    }, {
+      "id" : 603,
+      "comment" : "End combat",
+      "fields" : [ {
+        "name" : "tick",
+        "type" : "INT",
+        "comment" : null,
+        "default" : null
+      } ]
+    }, {
+      "id" : 604,
+      "comment" : "Cast spell",
+      "fields" : [ {
+        "name" : "x",
+        "type" : "INT",
+        "comment" : null,
+        "default" : null
+      }, {
+        "name" : "y",
+        "type" : "INT",
+        "comment" : null,
+        "default" : null
+      }, {
+        "name" : "typeId",
+        "type" : "INT",
+        "comment" : null,
+        "default" : null
+      }, {
+        "name" : "tick",
+        "type" : "INT",
+        "comment" : null,
+        "default" : null
+      } ]
+    }, {
+      "id" : 700,
+      "comment" : "Next village during attack selection",
+      "fields" : [ {
+        "name" : null,
+        "type" : "INT",
+        "comment" : null,
+        "default" : null
+      }, {
+        "name" : null,
+        "type" : "INT",
+        "comment" : null,
+        "default" : null
+      }, {
+        "name" : "tick",
+        "type" : "INT",
+        "comment" : null,
+        "default" : null
+      } ]
+    } ]
   }, {
     "id" : null,
     "name" : "IdComponent",
@@ -1113,11 +2061,31 @@
       "type" : "ResourceComponent[]",
       "comment" : null,
       "default" : null
+    }, {
+      "name" : null,
+      "type" : "ResourceComponent[]",
+      "comment" : null,
+      "default" : null
+    }, {
+      "name" : null,
+      "type" : "ResourceComponent[]",
+      "comment" : null,
+      "default" : null
+    }, {
+      "name" : null,
+      "type" : "ResourceComponent[]",
+      "comment" : null,
+      "default" : null
+    }, {
+      "name" : null,
+      "type" : "ResourceComponent[]",
+      "comment" : null,
+      "default" : null
     } ],
     "extensions" : [ ]
   }, {
     "id" : null,
-    "name" : "searchEntry",
+    "name" : "SearchEntry",
     "comment" : null,
     "fields" : [ {
       "name" : "clanId",
@@ -1307,7 +2275,12 @@
       "comment" : null,
       "default" : null
     }, {
-      "name" : null,
+      "name" : "clanCastleCapacity",
+      "type" : "INT",
+      "comment" : null,
+      "default" : null
+    }, {
+      "name" : "allianceUnitsCount",
       "type" : "INT",
       "comment" : null,
       "default" : null
@@ -1317,7 +2290,12 @@
       "comment" : null,
       "default" : null
     }, {
-      "name" : "castleLevel",
+      "name" : null,
+      "type" : "INT",
+      "comment" : null,
+      "default" : null
+    }, {
+      "name" : "townHallLevel",
       "type" : "INT",
       "comment" : null,
       "default" : null
@@ -1347,7 +2325,7 @@
       "comment" : null,
       "default" : null
     }, {
-      "name" : null,
+      "name" : "gemCount2",
       "type" : "INT",
       "comment" : null,
       "default" : null
@@ -1367,22 +2345,22 @@
       "comment" : null,
       "default" : null
     }, {
-      "name" : "attackWon",
+      "name" : "attacksWon",
       "type" : "INT",
       "comment" : null,
       "default" : null
     }, {
-      "name" : null,
+      "name" : "attacksLost",
       "type" : "INT",
       "comment" : null,
       "default" : null
     }, {
-      "name" : "defencesWon",
+      "name" : "defensesWon",
       "type" : "INT",
       "comment" : null,
       "default" : null
     }, {
-      "name" : null,
+      "name" : "defensesLost",
       "type" : "INT",
       "comment" : null,
       "default" : null
@@ -1431,6 +2409,16 @@
       "type" : "INT",
       "comment" : null,
       "default" : null
+    }, {
+      "name" : null,
+      "type" : "INT",
+      "comment" : null,
+      "default" : null
+    }, {
+      "name" : null,
+      "type" : "INT",
+      "comment" : null,
+      "default" : null
     } ],
     "extensions" : [ ]
   }, {
@@ -1438,6 +2426,122 @@
     "name" : "UserHeaderComponent",
     "comment" : null,
     "fields" : [ {
+      "name" : null,
+      "type" : "INT",
+      "comment" : null,
+      "default" : null
+    }, {
+      "name" : null,
+      "type" : "INT",
+      "comment" : null,
+      "default" : null
+    } ],
+    "extensions" : [ ]
+  }, {
+    "id" : null,
+    "name" : "WarEvent",
+    "comment" : null,
+    "fields" : [ {
+      "name" : null,
+      "type" : "INT",
+      "comment" : null,
+      "default" : null
+    }, {
+      "name" : null,
+      "type" : "INT",
+      "comment" : null,
+      "default" : null
+    }, {
+      "name" : "attackId",
+      "type" : "INT",
+      "comment" : null,
+      "default" : null
+    }, {
+      "name" : "timeTillWarEnd",
+      "type" : "INT",
+      "comment" : null,
+      "default" : null
+    }, {
+      "name" : "attackerClanID",
+      "type" : "LONG",
+      "comment" : null,
+      "default" : null
+    }, {
+      "name" : "attackerID",
+      "type" : "LONG",
+      "comment" : null,
+      "default" : null
+    }, {
+      "name" : "defenderClanID",
+      "type" : "LONG",
+      "comment" : null,
+      "default" : null
+    }, {
+      "name" : "defenderID",
+      "type" : "LONG",
+      "comment" : null,
+      "default" : null
+    }, {
+      "name" : "attackerName",
+      "type" : "STRING",
+      "comment" : null,
+      "default" : null
+    }, {
+      "name" : "defenderName",
+      "type" : "STRING",
+      "comment" : null,
+      "default" : null
+    }, {
+      "name" : "stars",
+      "type" : "INT",
+      "comment" : null,
+      "default" : null
+    }, {
+      "name" : "newStars",
+      "type" : "INT",
+      "comment" : null,
+      "default" : null
+    }, {
+      "name" : "percentageDamageDone",
+      "type" : "INT",
+      "comment" : null,
+      "default" : null
+    }, {
+      "name" : null,
+      "type" : "INT",
+      "comment" : null,
+      "default" : null
+    }, {
+      "name" : "majorVersion",
+      "type" : "INT",
+      "comment" : null,
+      "default" : null
+    }, {
+      "name" : "minorVersion",
+      "type" : "INT",
+      "comment" : null,
+      "default" : null
+    }, {
+      "name" : null,
+      "type" : "INT",
+      "comment" : null,
+      "default" : null
+    }, {
+      "name" : null,
+      "type" : "BYTE",
+      "comment" : null,
+      "default" : null
+    }, {
+      "name" : null,
+      "type" : "INT",
+      "comment" : null,
+      "default" : null
+    }, {
+      "name" : null,
+      "type" : "INT",
+      "comment" : null,
+      "default" : null
+    }, {
       "name" : null,
       "type" : "INT",
       "comment" : null,
@@ -1601,7 +2705,7 @@
       "comment" : null,
       "default" : null
     }, {
-      "name" : null,
+      "name" : "teamMembers",
       "type" : "WarTeamMembers[]",
       "comment" : null,
       "default" : null
@@ -1747,11 +2851,6 @@
       "comment" : null,
       "default" : null
     }, {
-      "name" : null,
-      "type" : "?WarsTeamMemberUnknownComponent",
-      "comment" : null,
-      "default" : null
-    }, {
       "name" : "warId",
       "type" : "?LONG",
       "comment" : null,
@@ -1768,7 +2867,7 @@
       "default" : null
     }, {
       "name" : null,
-      "type" : "INT",
+      "type" : "?LONG",
       "comment" : null,
       "default" : null
     }, {
@@ -1783,6 +2882,11 @@
       "default" : null
     }, {
       "name" : null,
+      "type" : "INT",
+      "comment" : null,
+      "default" : null
+    }, {
+      "name" : "warRequest",
       "type" : "STRING",
       "comment" : null,
       "default" : null
@@ -1815,6 +2919,37 @@
     }, {
       "name" : null,
       "type" : "ResourceComponent[]",
+      "comment" : null,
+      "default" : null
+    } ],
+    "extensions" : [ ]
+  }, {
+    "id" : null,
+    "name" : "WarTeamMemberUnknownComponent",
+    "comment" : null,
+    "fields" : [ {
+      "name" : "name",
+      "type" : "STRING",
+      "comment" : null,
+      "default" : null
+    }, {
+      "name" : "position",
+      "type" : "INT",
+      "comment" : null,
+      "default" : null
+    }, {
+      "name" : null,
+      "type" : "INT",
+      "comment" : null,
+      "default" : null
+    }, {
+      "name" : null,
+      "type" : "INT",
+      "comment" : null,
+      "default" : null
+    }, {
+      "name" : null,
+      "type" : "INT",
       "comment" : null,
       "default" : null
     } ],
@@ -1909,18 +3044,13 @@
       "comment" : null,
       "default" : null
     }, {
-      "name" : "clanInWar",
-      "type" : "BYTE",
-      "comment" : null,
-      "default" : null
-    }, {
       "name" : "warID",
-      "type" : "LONG",
+      "type" : "?LONG",
       "comment" : null,
       "default" : null
     }, {
       "name" : "clanMembers",
-      "type" : "clanMembers[]",
+      "type" : "ClanMembers[]",
       "comment" : null,
       "default" : null
     } ],
@@ -2047,7 +3177,7 @@
       "default" : null
     }, {
       "name" : "searchEntries",
-      "type" : "searchEntry[]",
+      "type" : "SearchEntry[]",
       "comment" : null,
       "default" : null
     } ],
@@ -2155,192 +3285,12 @@
     "name" : "AllianceStreamEntry",
     "comment" : null,
     "fields" : [ {
-      "name" : "id",
-      "type" : "INT",
-      "comment" : null,
-      "default" : null
-    }, {
-      "name" : null,
-      "type" : "INT",
-      "comment" : null,
-      "default" : null
-    }, {
-      "name" : "messageId",
-      "type" : "INT",
-      "comment" : null,
-      "default" : null
-    }, {
-      "name" : null,
-      "type" : "BYTE",
-      "comment" : null,
-      "default" : null
-    }, {
-      "name" : "userId",
-      "type" : "LONG",
-      "comment" : null,
-      "default" : null
-    }, {
-      "name" : "homeId",
-      "type" : "LONG",
-      "comment" : null,
-      "default" : null
-    }, {
-      "name" : "userName",
-      "type" : "STRING",
-      "comment" : null,
-      "default" : null
-    }, {
-      "name" : "level",
-      "type" : "INT",
-      "comment" : null,
-      "default" : null
-    }, {
-      "name" : null,
-      "type" : "INT",
-      "comment" : null,
-      "default" : null
-    }, {
-      "name" : null,
-      "type" : "INT",
-      "comment" : null,
-      "default" : null
-    }, {
-      "name" : null,
-      "type" : "INT",
+      "name" : "entry",
+      "type" : "AllianceStreamEntry",
       "comment" : null,
       "default" : null
     } ],
-    "extensions" : [ {
-      "id" : 1,
-      "comment" : "Troop request",
-      "fields" : [ {
-        "name" : null,
-        "type" : "INT",
-        "comment" : null,
-        "default" : null
-      }, {
-        "name" : null,
-        "type" : "INT",
-        "comment" : null,
-        "default" : null
-      }, {
-        "name" : null,
-        "type" : "INT",
-        "comment" : null,
-        "default" : null
-      }, {
-        "name" : "donations",
-        "type" : "AllianceDonation[]",
-        "comment" : null,
-        "default" : null
-      }, {
-        "name" : "text",
-        "type" : "?STRING",
-        "comment" : null,
-        "default" : null
-      } ]
-    }, {
-      "id" : 2,
-      "comment" : "Send chat line",
-      "fields" : [ {
-        "name" : "text",
-        "type" : "STRING",
-        "comment" : null,
-        "default" : null
-      } ]
-    }, {
-      "id" : 3,
-      "comment" : "Accept/reject a join request",
-      "fields" : [ {
-        "name" : "text",
-        "type" : "STRING",
-        "comment" : null,
-        "default" : null
-      }, {
-        "name" : "actionedByUserName",
-        "type" : "STRING",
-        "comment" : null,
-        "default" : null
-      }, {
-        "name" : "action",
-        "type" : "INT",
-        "comment" : null,
-        "default" : null
-      } ]
-    }, {
-      "id" : 4,
-      "comment" : "Join or leave",
-      "fields" : [ {
-        "name" : "action",
-        "type" : "INT",
-        "comment" : null,
-        "default" : null
-      }, {
-        "name" : "actionedByUserId",
-        "type" : "LONG",
-        "comment" : null,
-        "default" : null
-      }, {
-        "name" : "actionedByUserName",
-        "type" : "STRING",
-        "comment" : null,
-        "default" : null
-      } ]
-    }, {
-      "id" : 5,
-      "comment" : "Share replay",
-      "fields" : [ {
-        "name" : null,
-        "type" : "INT",
-        "comment" : null,
-        "default" : null
-      }, {
-        "name" : null,
-        "type" : "INT",
-        "comment" : null,
-        "default" : null
-      }, {
-        "name" : null,
-        "type" : "INT",
-        "comment" : null,
-        "default" : null
-      }, {
-        "name" : null,
-        "type" : "BYTE",
-        "comment" : null,
-        "default" : null
-      }, {
-        "name" : "text",
-        "type" : "STRING",
-        "comment" : null,
-        "default" : null
-      }, {
-        "name" : "enemyName",
-        "type" : "STRING",
-        "comment" : null,
-        "default" : null
-      }, {
-        "name" : "replay",
-        "type" : "STRING",
-        "comment" : "JSON description of battle",
-        "default" : null
-      }, {
-        "name" : null,
-        "type" : "INT",
-        "comment" : null,
-        "default" : null
-      }, {
-        "name" : null,
-        "type" : "INT",
-        "comment" : null,
-        "default" : null
-      }, {
-        "name" : null,
-        "type" : "INT",
-        "comment" : null,
-        "default" : null
-      } ]
-    } ]
+    "extensions" : [ ]
   }, {
     "id" : 24318,
     "name" : "AllianceStreamEntryRemoved",
@@ -2475,12 +3425,12 @@
       "comment" : null,
       "default" : null
     }, {
-      "name" : null,
+      "name" : "ownTeam",
       "type" : "WarTeam",
       "comment" : null,
       "default" : null
     }, {
-      "name" : null,
+      "name" : "enemyTeam",
       "type" : "?WarTeam",
       "comment" : null,
       "default" : null
@@ -2490,8 +3440,8 @@
       "comment" : null,
       "default" : null
     }, {
-      "name" : null,
-      "type" : "INT[]",
+      "name" : "warEvents",
+      "type" : "WarEvent[]",
       "comment" : null,
       "default" : null
     } ],
@@ -2586,6 +3536,17 @@
     } ],
     "extensions" : [ ]
   }, {
+    "id" : 24111,
+    "name" : "AvailableServerCommand",
+    "comment" : null,
+    "fields" : [ {
+      "name" : "command",
+      "type" : "CommandComponent",
+      "comment" : null,
+      "default" : null
+    } ],
+    "extensions" : [ ]
+  }, {
     "id" : 24334,
     "name" : "AvatarProfile",
     "comment" : null,
@@ -2597,11 +3558,6 @@
     }, {
       "name" : "resources",
       "type" : "ResourceListComponent",
-      "comment" : null,
-      "default" : null
-    }, {
-      "name" : null,
-      "type" : "INT",
       "comment" : null,
       "default" : null
     }, {
@@ -2647,99 +3603,6 @@
       "default" : null
     } ],
     "extensions" : [ ]
-  }, {
-    "id" : 24412,
-    "name" : "AvatarStreamEntry",
-    "comment" : null,
-    "fields" : [ {
-      "name" : "id",
-      "type" : "INT",
-      "comment" : null,
-      "default" : null
-    } ],
-    "extensions" : [ {
-      "id" : 2,
-      "comment" : null,
-      "fields" : [ {
-        "name" : null,
-        "type" : "AvatarStreamEntryExtensionDefault",
-        "comment" : null,
-        "default" : null
-      } ]
-    }, {
-      "id" : 6,
-      "comment" : null,
-      "fields" : [ {
-        "name" : null,
-        "type" : "LONG",
-        "comment" : null,
-        "default" : null
-      }, {
-        "name" : "userId",
-        "type" : "LONG",
-        "comment" : null,
-        "default" : null
-      }, {
-        "name" : "userName",
-        "type" : "STRING",
-        "comment" : null,
-        "default" : null
-      }, {
-        "name" : null,
-        "type" : "INT",
-        "comment" : null,
-        "default" : null
-      }, {
-        "name" : null,
-        "type" : "INT",
-        "comment" : null,
-        "default" : null
-      }, {
-        "name" : null,
-        "type" : "INT",
-        "comment" : null,
-        "default" : null
-      }, {
-        "name" : null,
-        "type" : "BYTE",
-        "comment" : null,
-        "default" : null
-      }, {
-        "name" : "text",
-        "type" : "STRING",
-        "comment" : null,
-        "default" : null
-      }, {
-        "name" : null,
-        "type" : "?LONG",
-        "comment" : null,
-        "default" : null
-      }, {
-        "name" : null,
-        "type" : "LONG",
-        "comment" : null,
-        "default" : null
-      }, {
-        "name" : "clanName",
-        "type" : "STRING",
-        "comment" : null,
-        "default" : null
-      }, {
-        "name" : null,
-        "type" : "INT",
-        "comment" : null,
-        "default" : null
-      } ]
-    }, {
-      "id" : 7,
-      "comment" : null,
-      "fields" : [ {
-        "name" : null,
-        "type" : "AvatarStreamEntryExtensionDefault",
-        "comment" : null,
-        "default" : null
-      } ]
-    } ]
   }, {
     "id" : 24340,
     "name" : "BookmarksList",
@@ -2908,6 +3771,11 @@
       "type" : "?ClanIdComponent",
       "comment" : null,
       "default" : null
+    }, {
+      "name" : null,
+      "type" : "INT",
+      "comment" : null,
+      "default" : null
     } ],
     "extensions" : [ ]
   }, {
@@ -2952,7 +3820,7 @@
       "default" : null
     }, {
       "name" : null,
-      "type" : "INT",
+      "type" : "STRING",
       "comment" : null,
       "default" : null
     }, {
@@ -2973,6 +3841,11 @@
     }, {
       "name" : null,
       "type" : "STRING",
+      "comment" : null,
+      "default" : null
+    }, {
+      "name" : null,
+      "type" : "INT",
       "comment" : null,
       "default" : null
     } ],
@@ -3071,6 +3944,11 @@
       "type" : "STRING",
       "comment" : null,
       "default" : null
+    }, {
+      "name" : null,
+      "type" : "STRING",
+      "comment" : null,
+      "default" : null
     } ],
     "extensions" : [ ]
   }, {
@@ -3084,9 +3962,9 @@
       "default" : null
     }, {
       "name" : null,
-      "type" : "INT",
+      "type" : "STRING",
       "comment" : null,
-      "default" : "-1"
+      "default" : null
     }, {
       "name" : "timeStamp",
       "type" : "INT",
@@ -3104,6 +3982,16 @@
       "default" : null
     }, {
       "name" : "remainingShield",
+      "type" : "INT",
+      "comment" : null,
+      "default" : null
+    }, {
+      "name" : null,
+      "type" : "INT",
+      "comment" : null,
+      "default" : null
+    }, {
+      "name" : null,
       "type" : "INT",
       "comment" : null,
       "default" : null
@@ -3130,6 +4018,42 @@
     }, {
       "name" : "resources",
       "type" : "ResourceListComponent",
+      "comment" : null,
+      "default" : null
+    }, {
+      "name" : null,
+      "type" : "INT",
+      "comment" : null,
+      "default" : null
+    }, {
+      "name" : null,
+      "type" : "INT",
+      "comment" : null,
+      "default" : null
+    }, {
+      "name" : null,
+      "type" : "LONG",
+      "comment" : null,
+      "default" : null
+    }, {
+      "name" : null,
+      "type" : "LONG",
+      "comment" : null,
+      "default" : null
+    }, {
+      "name" : null,
+      "type" : "LONG",
+      "comment" : null,
+      "default" : null
+    } ],
+    "extensions" : [ ]
+  }, {
+    "id" : 20100,
+    "name" : "ServerHandshake",
+    "comment" : null,
+    "fields" : [ {
+      "name" : "sessionKey",
+      "type" : "STRING",
       "comment" : null,
       "default" : null
     } ],

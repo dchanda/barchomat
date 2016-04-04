@@ -5,7 +5,6 @@ import org.slf4j.LoggerFactory;
 import sir.barchable.clash.model.SessionState;
 import sir.barchable.clash.protocol.Connection;
 import sir.barchable.clash.protocol.MessageFactory;
-import sir.barchable.clash.protocol.PduException;
 import sir.barchable.clash.protocol.crypt.ClientCrypto;
 import sir.barchable.clash.protocol.crypt.ServerCrypto;
 
@@ -93,7 +92,6 @@ public class ProxySession {
         // A pipe for messages from server -> client
         Pipe serverPipe = new Pipe(serverConnection.getName(), serverConnection.getIn(), clientConnection.getOut());
 
-//        KeyTap keyListener = new KeyTap();
         SessionKeyTap sessionKeyListener = new SessionKeyTap();
         PduFilter loginFilter = filterChain.addAfter(new MessageTapFilter(messageFactory, sessionKeyListener));
 
@@ -105,14 +103,10 @@ public class ProxySession {
 
         //Start cryptography for streams
         ClientCrypto clientCrypto = new ClientCrypto();
-        ServerCrypto serverCrypto = new ServerCrypto(clientCrypto);
+        ServerCrypto serverCrypto = new ServerCrypto();
         clientCrypto.setSessionKey( sessionKeyListener.getSessionKey() );
         clientConnection.setCipher( serverCrypto );
         serverConnection.setCipher( clientCrypto );
-
-        // Re-key the streams
-//        clientConnection.setKey(key);
-//        serverConnection.setKey(key);
 
         // Proxy messages from client -> server
         runPipe(clientPipe);

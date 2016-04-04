@@ -1,10 +1,8 @@
 package sir.barchable.clash.protocol.crypt;
 
-import com.sun.corba.se.spi.activation.Server;
 import org.abstractj.kalium.crypto.Box;
-import org.abstractj.kalium.encoders.Encoder;
-import org.abstractj.kalium.encoders.Hex;
-import org.abstractj.kalium.keys.PublicKey;
+import org.abstractj.kalium.keys.KeyPair;
+import sir.barchable.util.ArrayUtils;
 
 import java.util.Arrays;
 
@@ -14,16 +12,26 @@ import java.util.Arrays;
  *
  */
 public class ServerCrypto extends BaseCrypto {
-    ClientCrypto clientCrypto;
 
-    public ServerCrypto(ClientCrypto clientCrypto) {
+    public ServerCrypto() {
         super("1891d401fadb51d25d3a9174d472a9f691a45b974285d47729c45c6538070d85");
-        this.clientCrypto = clientCrypto;
     }
 
     @Override
     public byte[] encrypt(byte[] b) {
-        return new byte[0];
+        if ( encryptionNonce == null ) {
+            CoCNonce nonce = new CoCNonce(decryptionNonce, getPeerPublicKey(), myKeyPair.getPublicKey());
+            encryptionNonce = new CoCNonce();
+            KeyPair sharedKeyPair = new KeyPair();
+            Box sharedKeyBox = new Box(sharedKeyPair.getPublicKey(), sharedKeyPair.getPrivateKey());
+            byte[] secretBoxBytes = sharedKeyBox.getSharedKey();
+            byte[] enhancedMessage = ArrayUtils.join(encryptionNonce.getBytes(), secretBoxBytes, b);
+            byte[] encrypted = encrypt(enhancedMessage, nonce);
+            this.sharedKey = sharedKeyBox;
+            return encrypted;
+        }
+
+        return encrypt(b, null);
     }
 
     @Override
@@ -40,11 +48,10 @@ public class ServerCrypto extends BaseCrypto {
         }
 
         if ( nonce != null ) {
-            decryptedBytes = super.decrypt(encryptedBytes, nonce);
+            decryptedBytes = decrypt(encryptedBytes, nonce);
             //Future decryption NONCE is in the payload:
             if ( decryptionNonce  == null ) {
                 decryptionNonce = new CoCNonce(Arrays.copyOfRange(decryptedBytes, 24, 48));
-                this.clientCrypto.encryptionNonce = new CoCNonce(Arrays.copyOfRange(decryptedBytes, 24, 48));
                 decryptedBytes = Arrays.copyOfRange(decryptedBytes, 48, decryptedBytes.length);
             }
         } else {
@@ -59,15 +66,4 @@ public class ServerCrypto extends BaseCrypto {
 
     }
 
-    public static void main(String...args) {
-        ServerCrypto crypto = new ServerCrypto(null);
-
-        PublicKey pk = new PublicKey("469b704e7f6009ba8fc72e9b5c864c8e9285a755c5190f03f5c74852f6d9f419");
-
-        byte[] nonce = new Hex().decode("80c7ff07cb5b3ecbcfbd788ef3920f21d07013ae344fd08e");
-
-        Box box = new Box(pk, crypto.myKeyPair.getPrivateKey());
-
-        System.out.println( new Hex().encode(box.encrypt(nonce, new Hex().decode("1234567890abcdef"))));
-    }
 }

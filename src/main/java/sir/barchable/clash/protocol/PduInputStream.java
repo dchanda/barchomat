@@ -32,6 +32,7 @@ public class PduInputStream implements Closeable {
     public final Pdu read() throws IOException {
         Pdu pdu = new Pdu();
         pdu.id = readUInt2();
+        System.out.println("Received a message id : " + pdu.id);
         int length = readUInt3();
         pdu.version = readUInt2();
         pdu.payload = cipher.decrypt(readBytes(length));

@@ -129,6 +129,7 @@ public class Main {
             commander.usage();
         } catch (Exception e) {
             System.err.println("Oops: " + e);
+            e.printStackTrace();
         }
     }
 

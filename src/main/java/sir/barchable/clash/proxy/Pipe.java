@@ -41,6 +41,7 @@ class Pipe {
         Pdu pdu;
 
         try {
+            System.out.print("Pipe {" + name + "} waiting for data... ");
             pdu = source.read();
         } catch (EOFException eof) {
             if (propagateEof) {

@@ -9,6 +9,8 @@ import org.abstractj.kalium.keys.PublicKey;
 import sir.barchable.util.Blake2b;
 import sir.barchable.util.Cipher;
 
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
 import java.util.Arrays;
 
 /**
@@ -18,7 +20,7 @@ public abstract class BaseCrypto implements Cipher {
     protected KeyPair myKeyPair;
     protected PublicKey peerPublicKey;
 
-    protected String sessionKey;
+    protected byte[] sessionKey;
 
     protected Box sharedKey;
 
@@ -39,7 +41,7 @@ public abstract class BaseCrypto implements Cipher {
             decryptionNonce.increment();
             nonce = decryptionNonce;
         }
-        return sharedKey.decrypt( nonce.getBytes(), b);
+        return sharedKey.decrypt(nonce.getBytes(), b);
     }
 
     protected byte[] encrypt(byte[] b, CoCNonce nonce) {
@@ -60,8 +62,9 @@ public abstract class BaseCrypto implements Cipher {
     }
 
     public void setSessionKey(String sessionKey) {
-        this.sessionKey = sessionKey;
+        this.sessionKey = new Hex().decode(sessionKey);
     }
+
 
     public static class CoCNonce {
 
@@ -71,13 +74,23 @@ public abstract class BaseCrypto implements Cipher {
             this.nonce = Arrays.copyOf(nonce, nonce.length);
         }
 
-        public CoCNonce(PublicKey clientPubKey, PublicKey serverPubKey) {
+        public CoCNonce(CoCNonce nonce, PublicKey clientPubKey, PublicKey serverPubKey) {
+            this(nonce.getBytes(), clientPubKey, serverPubKey);
+        }
+
+        public CoCNonce(byte[] nonce, PublicKey clientPubKey, PublicKey serverPubKey) {
+            this.nonce = nonce;
             Blake2b.Digest digest = Blake2b.Digest.newInstance(24);
-            if ( nonce != null )
-                digest.update(nonce);
-            digest.update(clientPubKey.toBytes());
-            digest.update(serverPubKey.toBytes());
-            nonce = digest.digest();
+            if ( this.nonce != null )
+                digest.update(this.nonce);
+            if (clientPubKey != null) digest.update(clientPubKey.toBytes());
+            if (serverPubKey != null) digest.update(serverPubKey.toBytes());
+            this.nonce = digest.digest();
+        }
+
+
+        public CoCNonce(PublicKey clientPubKey, PublicKey serverPubKey) {
+            this((byte[]) null, clientPubKey, serverPubKey);
         }
 
         public CoCNonce() {
@@ -88,49 +101,12 @@ public abstract class BaseCrypto implements Cipher {
             return nonce;
         }
 
-        public void increment() {}
+        public synchronized void increment() {
+            ByteBuffer buffer = ByteBuffer.wrap(nonce).order(ByteOrder.LITTLE_ENDIAN);
+            int newInt = buffer.getInt()+2;
+            buffer.position(0);
+            buffer.putInt(newInt);
+            nonce = buffer.array();
+        }
     }
-
-
 }
-
-/*
-
-def increment(self):
-        self._nonce = (int.from_bytes(self._nonce, byteorder="little") + 2).to_bytes(Box.NONCE_SIZE, byteorder="little")
-
- */
-
-
-
-/*
-
-class CoCNonce:
-
-    def __init__(self, nonce=None, clientkey=None, serverkey=None):
-        if not clientkey:
-            if nonce:
-                self._nonce = nonce
-            else:
-                self._nonce = nacl.utils.random(Box.NONCE_SIZE)
-        else:
-            b2 = blake2b(digest_size=24)
-            if nonce:
-                b2.update(bytes(nonce))
-            b2.update(bytes(clientkey))
-            b2.update(bytes(serverkey))
-            self._nonce = b2.digest()
-
-    def __bytes__(self):
-        return self._nonce
-
-    def __len__(self):
-        return len(self._nonce)
-
-    def increment(self):
-        self._nonce = (int.from_bytes(self._nonce, byteorder="little") + 2).to_bytes(Box.NONCE_SIZE, byteorder="little")
-
-
-
-
- */

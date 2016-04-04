@@ -16,11 +16,10 @@
     {"name": "clanWarFrequency", "type": "INT"},
     {"name": "clanLocation", "type": "INT"},
     {"name": "clanPerksPoints", "type": "INT"},
-    {"name": "clanLevel", "type" : "INT"},
+    {"name": "clanLevel", "type": "INT"},
     {"name": "clanDescription", "type": "STRING"},
     {"type": "INT"},
-    {"name": "clanInWar", "type": "BYTE"},
-    {"name": "warID", "type": "LONG"},
-    {"name": "clanMembers", "type": "clanMembers[]"}
+    {"name": "warID", "type": "?LONG"},
+    {"name": "clanMembers", "type": "ClanMembers[]"}
   ]
 }
